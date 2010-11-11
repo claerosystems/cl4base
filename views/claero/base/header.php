@@ -17,11 +17,11 @@
 			<nav class="main_nav logged_in_nav">
 				<ul>
 					<?php if ($logged_in) { ?>
-					<li><a href="/login/logout"><img src="/cl4/cl4base/images/nav/logout.gif" width="10" height="13" alt="<?php echo HTML::chars(__('Logout')); ?>"> <?php echo HTML::chars(__('Logout')); ?></a></li>
+					<li><a href="/login/logout"><img src="/cl4base/images/nav/logout.gif" width="10" height="13" alt="<?php echo HTML::chars(__('Logout')); ?>"> <?php echo HTML::chars(__('Logout')); ?></a></li>
 					<li class="nav_divider"></li>
-					<li><a href="/account/profile"><img src="/cl4/cl4base/images/nav/my_account.gif" width="10" height="12" alt="<?php echo HTML::chars(__('My Account')); ?>"> <?php echo HTML::chars(__('My Account')); ?></a></li>
+					<li><a href="/account/profile"><img src="/cl4base/images/nav/my_account.gif" width="10" height="12" alt="<?php echo HTML::chars(__('My Account')); ?>"> <?php echo HTML::chars(__('My Account')); ?></a></li>
 					<?php } else { ?>
-					<li><a href="/login"><img src="/cl4/cl4base/images/nav/logout.gif" width="10" height="13" alt="<?php echo HTML::chars(__('Login')); ?>"> <?php echo HTML::chars(__('Login')); ?></a></li>
+					<li><a href="/login"><img src="/cl4base/images/nav/logout.gif" width="10" height="13" alt="<?php echo HTML::chars(__('Login')); ?>"> <?php echo HTML::chars(__('Login')); ?></a></li>
 					<?php } // if logged in ?>
 					<li class="nav_divider"></li>
 				</ul>
