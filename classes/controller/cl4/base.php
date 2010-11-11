@@ -1,6 +1,6 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
-class Controller_Base extends Controller_Template {
+class Controller_cl4_Base extends Controller_Template {
 	public $template = 'claero/base/base'; // this is the default template file
 	public $allowed_languages = array('en-ca', 'fr-ca'); // set allowed languages
 	public $page = NULL;

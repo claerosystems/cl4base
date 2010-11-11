@@ -1,6 +1,6 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
-class Controller_Page extends Controller_Base {
+class Controller_cl4_Page extends Controller_Base {
 	// load a web page in to the default template from file or database
 	// special case for overview ages of web site 'sections'
 	public function action_index() {
