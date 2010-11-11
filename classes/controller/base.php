@@ -166,18 +166,18 @@ class Controller_Base extends Controller_Template {
 			// add jquery js (for all pages, other js relies on it, so it has to be included first)
 			'//ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js',
 			'//ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/jquery-ui.min.js',
-			'lib/cl4/cl4.js',
-			'js/base.js',
+			'cl4/js/cl4.js',
+			'cl4/cl4base/js/base.js',
 		);
 		$this->template->on_load_js = '';
 	} // function add_template_js
 
 	public function add_template_styles() {
 		$this->template->styles = array(
-			'css/reset.css' => 'screen',
+			'cl4/cl4base/css/reset.css' => 'screen',
 			'//ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/themes/pepper-grinder/jquery-ui.css' => 'screen',
-			'lib/cl4/cl4.css' => 'screen',
-			'css/base.css' => 'screen',
+			'cl4/css/cl4.css' => 'screen',
+			'cl4/cl4base/css/base.css' => 'screen',
 		);
 	} // function add_template_styles
 
