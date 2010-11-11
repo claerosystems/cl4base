@@ -167,17 +167,17 @@ class Controller_Base extends Controller_Template {
 			'//ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js',
 			'//ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/jquery-ui.min.js',
 			'cl4/js/cl4.js',
-			'cl4base/js/base.js',
+			'js/base.js',
 		);
 		$this->template->on_load_js = '';
 	} // function add_template_js
 
 	public function add_template_styles() {
 		$this->template->styles = array(
-			'cl4base/css/reset.css' => 'screen',
+			'css/reset.css' => 'screen',
 			'//ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/themes/pepper-grinder/jquery-ui.css' => 'screen',
 			'cl4/css/cl4.css' => 'screen',
-			'cl4base/css/base.css' => 'screen',
+			'css/base.css' => 'screen',
 		);
 	} // function add_template_styles
 
