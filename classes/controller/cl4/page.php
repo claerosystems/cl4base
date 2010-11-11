@@ -12,9 +12,9 @@ class Controller_cl4_Page extends Controller_Base {
 			$this->template->body_html .= $this->get_static_template();
 		} catch (Kohana_View_Exception $e) {
 			$this->action_404();
-			Claero::exception_handler($e);
+			cl4::exception_handler($e);
 		} catch (Exception $e) {
-			Claero::exception_handler($e);
+			cl4::exception_handler($e);
 		}
 	} // function action_index
 

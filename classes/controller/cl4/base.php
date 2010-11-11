@@ -1,7 +1,7 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
 class Controller_cl4_Base extends Controller_Template {
-	public $template = 'claero/base/base'; // this is the default template file
+	public $template = 'cl4/base/base'; // this is the default template file
 	public $allowed_languages = array('en-ca', 'fr-ca'); // set allowed languages
 	public $page = NULL;
 	public $section = NULL;
@@ -221,7 +221,7 @@ class Controller_cl4_Base extends Controller_Template {
 			// look for any status message and display
 			$this->template->message = Message::display();
 
-			if (Claero::is_dev()) {
+			if (cl4::is_dev()) {
 				// this is so a session isn't started needlessly when in debug mode
 				$this->template->session = $this->session;
 			}
