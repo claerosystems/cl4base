@@ -164,7 +164,7 @@ class Controller_cl4_Base extends Controller_Template {
 		$this->template->modernizr_path = '/js/modernizr-1.6.min.js';
 		$this->template->scripts = array(
 			// add jquery js (for all pages, other js relies on it, so it has to be included first)
-			'//ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js',
+			'//ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js',
 			'//ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/jquery-ui.min.js',
 			'cl4/js/cl4.js',
 			'js/base.js',
