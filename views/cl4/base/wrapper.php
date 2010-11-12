@@ -1,10 +1,12 @@
 
 <div id="wrapper">
-	<?php if ( ! empty($message)) {
-		echo $message;
-	} ?>
 	<div id="main_content">
-	<?php echo $body_html; ?>
+	<?php
+	if ( ! empty($message)) {
+		echo $message;
+	}
+	echo $body_html;
+	?>
 	</div>
 	<div class="clear"></div>
 
