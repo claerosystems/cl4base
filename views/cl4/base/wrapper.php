@@ -1,3 +1,4 @@
+
 <div id="wrapper">
 	<?php if ( ! empty($message)) {
 		echo $message;
