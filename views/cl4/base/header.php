@@ -17,11 +17,11 @@
 			<nav class="main_nav logged_in_nav">
 				<ul>
 					<?php if ($logged_in) { ?>
-					<li><a href="/login/logout"><img src="/images/nav/logout.gif" width="10" height="13" alt="<?php echo HTML::chars(__('Logout')); ?>"> <?php echo HTML::chars(__('Logout')); ?></a></li>
+					<li class="login"><a href="/login/logout"><img src="/images/nav/logout.gif" width="10" height="13" alt="<?php echo HTML::chars(__('Logout')); ?>"> <?php echo HTML::chars(__('Logout')); ?></a></li>
 					<li class="nav_divider"></li>
-					<li><a href="/account/profile"><img src="/images/nav/my_account.gif" width="10" height="12" alt="<?php echo HTML::chars(__('My Account')); ?>"> <?php echo HTML::chars(__('My Account')); ?></a></li>
+					<li class="account"><a href="/account/profile"><img src="/images/nav/my_account.gif" width="10" height="12" alt="<?php echo HTML::chars(__('My Account')); ?>"> <?php echo HTML::chars(__('My Account')); ?></a></li>
 					<?php } else { ?>
-					<li><a href="/login"><img src="/images/nav/logout.gif" width="10" height="13" alt="<?php echo HTML::chars(__('Login')); ?>"> <?php echo HTML::chars(__('Login')); ?></a></li>
+					<li class="login"><a href="/login"><img src="/images/nav/logout.gif" width="10" height="13" alt="<?php echo HTML::chars(__('Login')); ?>"> <?php echo HTML::chars(__('Login')); ?></a></li>
 					<?php } // if logged in ?>
 					<li class="nav_divider"></li>
 				</ul>
@@ -30,7 +30,7 @@
 				<ul>
 					<li class="home"><a href="/"><?php echo __('Home'); ?></a></li>
 					<li class="nav_divider"></li>
-                    <li class="home"><a href="/aboutus"><?php echo __('About Us'); ?></a>
+                    <li class="aboutus"><a href="/aboutus"><?php echo __('About Us'); ?></a>
                         <ul class="sub_nav">
 							<li class="ourpeople"><a href="/aboutus/ourpeople"><?php echo HTML::chars(__('Our People')); ?></a></li>
 						</ul>
