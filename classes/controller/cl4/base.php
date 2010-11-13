@@ -147,29 +147,29 @@ class Controller_cl4_Base extends Controller_Template {
 	} // function check_login
 
 	public function set_template_page_title() {
-		$this->template->page_title = '';
+		if (empty($this->template->page_title)) $this->template->page_title = '';
 	} // function set_template_page_title
 
 	public function set_template_meta() {
 		// an array of meta tags where the key is the name and value is the content
-		$this->template->meta_tags = array(
-			'description' => '',
-			'keywords' => '',
-			'author' => '',
-			'viewport' => 'width=device-width, initial-scale=1.0',
-		);
+		if (empty($this->template->meta_tags)) $this->template->meta_tags = array();
+		if ( ! isset($this->template->meta_tags['description'])) $this->template->meta_tags['description'] = '';
+		if ( ! isset($this->template->meta_tags['keywords'])) $this->template->meta_tags['keywords'] = '';
+		if ( ! isset($this->template->meta_tags['author'])) $this->template->meta_tags['author'] = '';
+		if ( ! isset($this->template->meta_tags['viewport'])) $this->template->meta_tags['viewport'] = 'width=device-width, initial-scale=1.0';
 	} // function set_template_meta
 
 	public function add_template_js() {
-		$this->template->modernizr_path = '/js/modernizr-1.6.min.js';
-		$this->template->scripts = array(
-			// add jquery js (for all pages, other js relies on it, so it has to be included first)
-			'//ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js',
-			'//ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/jquery-ui.min.js',
-			'cl4/js/cl4.js',
-			'js/base.js',
-		);
-		$this->template->on_load_js = '';
+		if (empty($this->template->modernizr_path)) $this->template->modernizr_path = '/js/modernizr-1.6.min.js';
+
+		if (empty($this->template->scripts)) $this->template->scripts = array();
+		// add jquery js (for all pages, other js relies on it, so it has to be included first)
+		if ( ! isset($this->template->scripts['jquery'])) $this->template->scripts['jquery'] = '//ajax.googleapis.com/ajax/libs/jquery/1.4.3/jquery.min.js';
+		if ( ! isset($this->template->scripts['jquery_ui'])) $this->template->scripts['jquery_ui'] = '//ajax.googleapis.com/ajax/libs/jqueryui/1.8.6/jquery-ui.min.js';
+		if ( ! isset($this->template->scripts['cl4'])) $this->template->scripts['cl4'] = 'cl4/js/cl4.js';
+		if ( ! isset($this->template->scripts['base'])) $this->template->scripts['base'] = 'js/base.js';
+
+		if (empty($this->template->on_load_js)) $this->template->on_load_js = '';
 	} // function add_template_js
 
 	public function add_template_styles() {
