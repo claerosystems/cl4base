@@ -5,7 +5,7 @@
 if ( ! DEBUG_FLAG) { ?><!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge;chrome=1"><![endif]--><?php } echo EOL; ?>
 	<title><?php
 if (DEVELOPMENT_FLAG) {
-	echo '*** Development Site *** ';
+	echo '*** ' . HTML::chars(SHORT_NAME . ' v' . APP_VERSION) . ' Development Site *** ';
 }
 if ( ! empty($page_title) && trim($page_title) != '') {
 	echo HTML::chars($page_title) . ' - ';
