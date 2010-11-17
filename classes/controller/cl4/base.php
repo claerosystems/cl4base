@@ -43,8 +43,10 @@ class Controller_cl4_Base extends Controller_Template {
 
 		$this->check_login();
 
-        // set up the controller properties
-		$this->this_page = $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
+		// set up the controller properties
+		if (isset($_SERVER['SERVER_NAME']) && $_SERVER['REQUEST_URI']) {
+			$this->this_page = $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
+		}
 
 		// only do language detection if there are allowed languages
 		if ( ! empty($this->allowed_languages) && count($this->allowed_languages) > 1) {
