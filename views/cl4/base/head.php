@@ -14,7 +14,7 @@ echo HTML::chars(SHORT_NAME . ' v' . APP_VERSION);  ?></title>
 <?php if ( ! empty($meta_tags)) {
 	foreach ($meta_tags as $name => $content) {
 		if ( ! empty($content)) {
-			echo TAB . HTML::meta($name, $content);
+			echo TAB . HTML::meta($name, $content) . EOL;
 		} // if
 	} // foreach
 } // if
