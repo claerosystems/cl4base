@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="<?php if (isset($language)) echo $language; ?>" class="no-js">
+<html <?php if (isset($language)) { ?>lang="<?php echo HTML::chars($language); ?>" <?php } ?>class="no-js">
 <head>
 	<meta charset="utf-8"><?php
 if ( ! DEBUG_FLAG) { ?><!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge;chrome=1"><![endif]--><?php } echo EOL; ?>
