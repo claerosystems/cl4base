@@ -13,6 +13,9 @@ class Controller_cl4_Base extends Controller_Template {
 	protected $logged_in = FALSE; // whether user is logged in
 	protected $session = NULL;
 
+	// if set to false, the messages will not automatically be displayed (need to display them manually)
+	protected $display_messages = TRUE;
+
 	/**
 	* Controls access for the whole controller
 	* If the entire controller REQUIRES that the user be logged in, set this to TRUE
@@ -221,7 +224,9 @@ class Controller_cl4_Base extends Controller_Template {
 			} // switch
 
 			// look for any status message and display
-			$this->template->message = Message::display();
+			if ($this->display_messages) {
+				$this->template->message = Message::display();
+			}
 
 			if (cl4::is_dev()) {
 				// this is so a session isn't started needlessly when in debug mode
