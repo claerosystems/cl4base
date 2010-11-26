@@ -30,17 +30,19 @@
 				<ul>
 					<li class="home"><a href="/"><?php echo __('Home'); ?></a></li>
 					<li class="nav_divider"></li>
-                    <li class="aboutus"><a href="/aboutus"><?php echo __('About Us'); ?></a>
-                        <ul class="sub_nav">
+					<li class="aboutus"><a href="/aboutus"><?php echo __('About Us'); ?></a>
+						<ul class="sub_nav">
 							<li class="ourpeople"><a href="/aboutus/ourpeople"><?php echo HTML::chars(__('Our People')); ?></a></li>
 						</ul>
-                    </li>
+					</li>
+					<?php if ($logged_in) { ?>
 					<li class="nav_divider"></li>
 					<li class="dbadmin"><a href="/dbadmin"><?php echo HTML::chars(__('DB Admin')); ?></a>
 						<ul class="sub_nav">
 							<li class="modelcreate"><a href="/dbadmin/a/model_create"><?php echo HTML::chars(__('Model Create')); ?></a></li>
 						</ul>
 					</li>
+					<?php } ?>
 				</ul>
 			</nav>
 		</div>
