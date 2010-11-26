@@ -27,8 +27,8 @@ class Controller_cl4_Base extends Controller_Template {
 	* Controls access for separate actions
 	*
 	* Examples:
-	* not set => when $auth_required is TRUE, then it will be considered a secure action, but no one will be able to access it
-	*            when $auth_request is FALSE, then everyone will have access to the action
+	* not set (FALSE) => when $auth_required is TRUE, then it will be considered a secure action, but will only require that the user is logged in
+	*            when $auth_required is FALSE, then everyone will have access to the action
 	* 'list' => FALSE the list action does not require the user to be logged in (the following are all the same as FALSE: "", 0, "0", NULL, array() (empty array))
 	* 'profile' => TRUE allows any logged in user to access that action
 	* 'adminpanel' => 'admin' will only allow users with the permission admin to access action_adminpanel
