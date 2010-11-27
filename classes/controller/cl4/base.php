@@ -165,7 +165,7 @@ class Controller_cl4_Base extends Controller_Template {
 	} // function set_template_meta
 
 	public function add_template_js() {
-		if (empty($this->template->modernizr_path)) $this->template->modernizr_path = '/js/modernizr-1.6.min.js';
+		if (empty($this->template->modernizr_path)) $this->template->modernizr_path = 'js/modernizr-1.6.min.js';
 
 		if (empty($this->template->scripts)) $this->template->scripts = array();
 		// add jquery js (for all pages, other js relies on it, so it has to be included first)
