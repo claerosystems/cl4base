@@ -45,7 +45,7 @@ class Controller_cl4_Base extends Controller_Template {
 		parent::before();
 
 		$this->check_login();
-
+		
 		// set up the controller properties
 		if (isset($_SERVER['SERVER_NAME']) && $_SERVER['REQUEST_URI']) {
 			$this->this_page = $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
@@ -124,7 +124,12 @@ class Controller_cl4_Base extends Controller_Template {
 	public function check_login() {
 		// record if they are logged in and set the template variable
 		$this->logged_in = Auth::instance()->logged_in();
-
+		
+		// If logged in, reset login attempts in session to 0
+		if ($this->logged_in) {
+			Session::instance()->delete('login_attempts');
+		}
+		
 		// ***** Authentication *****
 		// check to see if they are allowed to access the action
 		if ( ! Auth::instance()->controller_allowed($this, Request::instance()->action)) {
