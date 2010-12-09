@@ -121,6 +121,14 @@ class Controller_cl4_Base extends Controller_Template {
 		$this->session =& Session::instance()->as_array();
 	}
 
+	/**
+	* Checks if the user is logged in and if they have permissions to the current action
+	* If the user is not logged in, then they are redirected to the timed out page or login page
+	* If the user is logged in, but not allowed, then they are sent to the no access page
+	* If they are logged in and have access, then it will updat the time stamp in the session
+	*
+	* @return  Controller_Base
+	*/
 	public function check_login() {
 		// record if they are logged in and set the template variable
 		$this->logged_in = Auth::instance()->logged_in();
@@ -154,12 +162,25 @@ class Controller_cl4_Base extends Controller_Template {
 			// update the session auth timestamp
 			Auth::instance()->update_timestamp();
 		} // if
+
+		return $this;
 	} // function check_login
 
+	/**
+	* Sets the page title to an empty string
+	*
+	* @return  Controller_Base
+	*/
 	public function set_template_page_title() {
 		if (empty($this->template->page_title)) $this->template->page_title = '';
 	} // function set_template_page_title
 
+	/**
+	* Sets up the template meta tags var, adding keys with empty values for description, keywords and author
+	* Adds viewport with value of width=device-width, initial-scale=1.0
+	*
+	* @return  Controller_Base
+	*/
 	public function set_template_meta() {
 		// an array of meta tags where the key is the name and value is the content
 		if (empty($this->template->meta_tags)) $this->template->meta_tags = array();
@@ -167,8 +188,15 @@ class Controller_cl4_Base extends Controller_Template {
 		if ( ! isset($this->template->meta_tags['keywords'])) $this->template->meta_tags['keywords'] = '';
 		if ( ! isset($this->template->meta_tags['author'])) $this->template->meta_tags['author'] = '';
 		if ( ! isset($this->template->meta_tags['viewport'])) $this->template->meta_tags['viewport'] = 'width=device-width, initial-scale=1.0';
+
+		return $this;
 	} // function set_template_meta
 
+	/**
+	* Sets up the template script var, add's modernizr, jquery, jquery ui, cl4.js and base.js if they are not already set
+	*
+	* @return  Controller_Base
+	*/
 	public function add_template_js() {
 		if (empty($this->template->modernizr_path)) $this->template->modernizr_path = 'js/modernizr-1.6.min.js';
 
@@ -180,8 +208,30 @@ class Controller_cl4_Base extends Controller_Template {
 		if ( ! isset($this->template->scripts['base'])) $this->template->scripts['base'] = 'js/base.js';
 
 		if (empty($this->template->on_load_js)) $this->template->on_load_js = '';
+
+		return $this;
 	} // function add_template_js
 
+	/**
+	* Adds JavaScript to the template on_load_js var, including checking to see if there should be a line break before the addition
+	*
+	* @param  string  $js  The javascript to add
+	* @return  Controller_Base
+	*/
+	public function add_on_load_js($js) {
+		if ( ! empty($this->template->on_load_js)) {
+			$this->template->on_load_js .= "\n";
+		}
+		$this->template->on_load_js .= $js;
+
+		return $this;
+	} // function add_on_load_js
+
+	/**
+	* Sets up and adds some styles, including reset.css, jquery ui, cl4.css and base.css
+	*
+	* @return  Controller_Base
+	*/
 	public function add_template_styles() {
 		$this->template->styles = array(
 			'css/reset.css' => 'screen',
@@ -189,6 +239,8 @@ class Controller_cl4_Base extends Controller_Template {
 			'cl4/css/cl4.css' => 'screen',
 			'css/base.css' => 'screen',
 		);
+
+		return $this;
 	} // function add_template_styles
 
 	/**
@@ -201,7 +253,7 @@ class Controller_cl4_Base extends Controller_Template {
 			if ( ! empty($this->page)) {
 				$this->template->body_class .= ' p_' . $this->page;
 			}
-            if ( ! empty($this->section)) {
+			if ( ! empty($this->section)) {
 				$this->template->body_class .= ' s_' . $this->section;
 			}
 
@@ -242,13 +294,13 @@ class Controller_cl4_Base extends Controller_Template {
 		parent::after();
 	} // function after
 
-    /**
+	/**
 	* Returns a 404 error status and 404 page
 	*/
 	public function action_404() {
-        $locale = (empty($this->locale) ? $this->allowed_languages[0] : $this->locale);
+		$locale = (empty($this->locale) ? $this->allowed_languages[0] : $this->locale);
 
-        // return a 404 because the page couldn't be found
+		// return a 404 because the page couldn't be found
 		Request::instance()->status = 404;
 		$this->template->body_html = View::factory('pages/' . $locale . '/404')
 			->set('message', Request::$messages[404]);
