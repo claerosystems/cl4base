@@ -10,7 +10,7 @@ if (DEVELOPMENT_FLAG) {
 if ( ! empty($page_title) && trim($page_title) != '') {
 	echo HTML::chars($page_title) . ' - ';
 }
-echo HTML::chars(SHORT_NAME . ' v' . APP_VERSION);  ?></title>
+echo HTML::chars(SHORT_NAME . ' v' . APP_VERSION); ?></title>
 <?php if ( ! empty($meta_tags)) {
 	foreach ($meta_tags as $name => $content) {
 		if ( ! empty($content)) {
