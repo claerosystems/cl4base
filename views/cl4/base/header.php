@@ -35,7 +35,7 @@
 							<li class="ourpeople"><a href="/aboutus/ourpeople"><?php echo HTML::chars(__('Our People')); ?></a></li>
 						</ul>
 					</li>
-					<?php if ($logged_in) { ?>
+					<?php if ($logged_in && Auth::instance()->allowed('cl4admin')) { ?>
 					<li class="nav_divider"></li>
 					<li class="dbadmin"><a href="/dbadmin"><?php echo HTML::chars(__('DB Admin')); ?></a>
 						<ul class="sub_nav">
