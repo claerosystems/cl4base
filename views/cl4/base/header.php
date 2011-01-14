@@ -39,7 +39,9 @@
 					<li class="nav_divider"></li>
 					<li class="dbadmin"><a href="/dbadmin"><?php echo HTML::chars(__('DB Admin')); ?></a>
 						<ul class="sub_nav">
+							<?php if (Auth::instance()->allowed('cl4admin/model_create')) { ?>
 							<li class="modelcreate"><a href="/dbadmin/a/model_create"><?php echo HTML::chars(__('Model Create')); ?></a></li>
+							<?php } ?>
 						</ul>
 					</li>
 					<?php } ?>
