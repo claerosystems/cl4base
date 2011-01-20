@@ -138,14 +138,14 @@ class Controller_cl4_Base extends Controller_Template {
 		if ( ! Auth::instance()->controller_allowed($this, Request::instance()->action)) {
 			if ($this->logged_in) {
 				// user is logged in but not allowed to access the page/action
-				Request::instance()->redirect('login/noaccess' . URL::array_to_query(array('referrer' => Request::instance()->uri()), '&'));
+				Request::instance()->redirect(Route::get('login')->uri(array('action' => 'noaccess')) . URL::array_to_query(array('referrer' => Request::instance()->uri()), '&'));
 			} else {
 				if (Auth::instance()->timed_out()) {
 					// display password page because the sesion has timeout
-					Request::instance()->redirect('login/timedout' . URL::array_to_query(array('redirect' => Request::instance()->uri()), '&'));
+					Request::instance()->redirect(Route::get('login')->uri(array('action' => 'timedout')) . URL::array_to_query(array('redirect' => Request::instance()->uri()), '&'));
 				} else {
 					// just not logged in, so redirect them to the login with a redirect parameter back to the current page
-					Request::instance()->redirect('login' . URL::array_to_query(array('redirect' => Request::instance()->uri()), '&'));
+					Request::instance()->redirect(Route::get('login')->uri() . URL::array_to_query(array('redirect' => Request::instance()->uri()), '&'));
 				}
 			} // if
 		} // if
