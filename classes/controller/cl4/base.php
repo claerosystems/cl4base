@@ -51,18 +51,21 @@ class Controller_cl4_Base extends Controller_Template {
 			$this->this_page = $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
 		}
 
-		// only do language detection if there are allowed languages
+		// initialize the locale if there are allowed languages
 		if ( ! empty($this->allowed_languages) && count($this->allowed_languages) > 1) {
 			$language_selection = TRUE;
-			// set locale and language and save in a cookie
-			// see if we have a locale cookie to use
-			$default_locale = Cookie::get('language', 'en-ca');
-			$this->locale = Request::instance()->param('lang', $default_locale);
-			if ( ! in_array($this->locale, $this->allowed_languages)) {
-				$this->locale = $this->allowed_languages[0];
-			} // if
-			i18n::lang($this->locale);
-			Cookie::set('language', $this->locale);
+			try {
+				// use the locale parameter from the route, if not set, then the cookie, if not set, then use the first locale in the list
+				$this->locale = Request::instance()->param('locale', Cookie::get('language', $this->allowed_languages[0]));
+				// make sure the locale is valid
+				if ( ! in_array($this->locale, $this->allowed_languages)) $this->locale = $this->allowed_languages[0];
+				// set up the locale
+				i18n::lang($this->locale);
+				// try to remember the locale in a cookie
+				Cookie::set('language', $this->locale, Date::MONTH);
+			} catch (Exception $e) {
+				// failed to set and/or store the locale
+			}
 			$this->language = substr(i18n::lang(), 0, 2);
 
 			// create the language switch link and set the locale
@@ -115,7 +118,7 @@ class Controller_cl4_Base extends Controller_Template {
 			$this->template->message = '';
 			$this->template->body_html = '';
 		} // if
-	} // function
+	} // function before
 
 	public function get_session() {
 		$this->session =& Session::instance()->as_array();
