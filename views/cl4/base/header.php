@@ -4,9 +4,6 @@
 			<div class="language_options"><?php if ( ! empty($language_options)) { ?><span class="language_label"><?php echo __('Language: '); ?></span><?php echo $language_options; ?><?php } ?></div>
 			<div class="clear"></div>
 			<div class="page_top_logo"><a href="<?php echo URL::base(); ?>"><?php echo HTML::chars(SHORT_NAME . ' v' . APP_VERSION); ?><?php if (isset($pageTitle) && trim($pageTitle) != '') echo ' - ' . HTML::chars($pageTitle); ?></a></div>
-			<?php if ($logged_in) { ?>
-			<div class="page_top_user_info"><span class="login_in_as">Logged in as</span> <?php echo HTML::chars($user->first_name . ' ' . $user->last_name); ?></div>
-			<?php } // if logged in ?>
 			<div class="clear"></div>
 		</div>
 	</div>
@@ -17,14 +14,17 @@
 			<nav class="main_nav logged_in_nav">
 				<ul>
 					<?php if ($logged_in) { ?>
-					<li class="logout"><?php echo HTML::anchor(Route::get('login')->uri(array('action' => 'logout')), '<img src="/images/icon-logout.gif" width="12" height="12" alt="' . HTML::chars(__('Logout')) . '"> ' . HTML::chars(__('Logout'))); ?></li>
+					<li class="logout"><?php echo HTML::anchor(Route::get('login')->uri(array('action' => 'logout')), '<img src="/images/nav/logout.gif" width="12" height="12" alt="' . HTML::chars(__('Logout')) . '"> ' . HTML::chars(__('Logout'))); ?></li>
 					<li class="nav_divider"></li>
-					<li class="account"><?php echo HTML::anchor(Route::get('account')->uri(array('action' => 'profile')), '<img src="/images/icon-my_account.gif" width="10" height="13" alt="' . HTML::chars(__('My Account')) . '"> ' . HTML::chars(__('My Account'))); ?></li>
+					<li class="account"><?php echo HTML::anchor(Route::get('account')->uri(array('action' => 'profile')), '<img src="/images/nav/my_account.gif" width="10" height="13" alt="' . HTML::chars(__('My Account')) . '"> ' . HTML::chars(__('My Account'))); ?></li>
 					<?php } else { ?>
 					<li class="login"><?php echo HTML::anchor(Route::get('login')->uri(), '<img src="/images/nav/logout.gif" width="10" height="13" alt="' . HTML::chars(__('Login')) . '"> ' . HTML::chars(__('Login')) . '</a>'); ?></li>
 					<?php } // if logged in ?>
 					<li class="nav_divider"></li>
 				</ul>
+				<?php if ($logged_in) { ?>
+				<div class="page_top_user_info"><span class="login_in_as">Logged in as</span> <?php echo HTML::chars($user->first_name . ' ' . $user->last_name); ?></div>
+				<?php } // if logged in ?>
 			</nav>
 			<nav class="main_nav">
 				<ul>

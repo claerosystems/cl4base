@@ -182,7 +182,7 @@ class Controller_cl4_Base extends Controller_Template {
 		if ( ! isset($this->template->meta_tags['description'])) $this->template->meta_tags['description'] = '';
 		if ( ! isset($this->template->meta_tags['keywords'])) $this->template->meta_tags['keywords'] = '';
 		if ( ! isset($this->template->meta_tags['author'])) $this->template->meta_tags['author'] = '';
-		if ( ! isset($this->template->meta_tags['viewport'])) $this->template->meta_tags['viewport'] = 'width=device-width, initial-scale=1.0';
+		if ( ! isset($this->template->meta_tags['viewport'])) $this->template->meta_tags['viewport'] = '';
 
 		return $this;
 	} // function set_template_meta
@@ -237,6 +237,24 @@ class Controller_cl4_Base extends Controller_Template {
 
 		return $this;
 	} // function add_template_styles
+
+	/**
+	* Adds the CSS for cl4admin
+	*/
+	protected function add_public_css() {
+		if ($this->auto_render) {
+			$this->template->styles['css/public.css'] = 'screen';
+		}
+	} // function add_admin_css
+
+	/**
+	* Adds the CSS for cl4admin
+	*/
+	protected function add_admin_css() {
+		if ($this->auto_render) {
+			$this->template->styles['css/admin.css'] = 'screen';
+		}
+	} // function add_admin_css
 
 	/**
 	* Called after our action method
