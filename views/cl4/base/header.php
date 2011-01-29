@@ -30,17 +30,17 @@
 				<ul>
 					<li class="home"><?php echo HTML::anchor('', __('Home')); ?></li>
 					<li class="nav_divider"></li>
-					<li class="aboutus"><?php echo HTML::anchor(Route::get('pages')->uri(array('page' => 'aboutus')), __('About Us')); ?></a>
+					<li class="aboutus"><?php echo HTML::anchor(Route::get('pages')->uri(array('page' => 'aboutus')), HTML::chars(__('About Us'))); ?></a>
 						<ul class="sub_nav">
-							<li class="ourpeople"><?php echo HTML::anchor(Route::get('pages_section')->uri(array('section' => 'aboutus', 'page' => 'ourpeople')), __('Our People')); ?></li>
+							<li class="ourpeople"><?php echo HTML::anchor(Route::get('pages_section')->uri(array('section' => 'aboutus', 'page' => 'ourpeople')), HTML::chars(__('Our People'))); ?></li>
 						</ul>
 					</li>
 					<?php if ($logged_in && Auth::instance()->allowed('cl4admin')) { ?>
 					<li class="nav_divider"></li>
-					<li class="dbadmin"><?php echo HTML::anchor(Route::get('cl4admin')->uri(), __('DB ADMIN')); ?>
+					<li class="dbadmin"><?php echo HTML::anchor(Route::get('cl4admin')->uri(), HTML::chars(__('DB ADMIN'))); ?>
 						<ul class="sub_nav">
 							<?php if (Auth::instance()->allowed('cl4admin/model_create')) { ?>
-							<li class="modelcreate"><?php echo HTML::anchor(Route::get('cl4admin')->uri(array('model' => 'a', 'action' => 'model_create')), __('Model Create')); ?></li>
+							<li class="modelcreate"><?php echo HTML::anchor(Route::get('cl4admin')->uri(array('model' => 'a', 'action' => 'model_create')), HTML::chars(__('Model Create'))); ?></li>
 							<?php } ?>
 						</ul>
 					</li>
