@@ -115,6 +115,7 @@ class Controller_cl4_Base extends Controller_Template {
 
 			// set some empty variables
 			$this->template->body_class = ''; // other classes are added to this with spaces
+			$this->template->pre_message = '';
 			$this->template->message = '';
 			$this->template->body_html = '';
 		} // if
