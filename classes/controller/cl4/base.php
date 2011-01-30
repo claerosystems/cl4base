@@ -175,8 +175,7 @@ class Controller_cl4_Base extends Controller_Template {
 	} // function set_template_page_title
 
 	/**
-	* Sets up the template meta tags var, adding keys with empty values for description, keywords and author
-	* Adds viewport with value of width=device-width, initial-scale=1.0
+	* Sets up the template meta tags var, adding keys with empty values for description, keywords, author and viewport
 	*
 	* @return  Controller_Base
 	*/
