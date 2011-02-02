@@ -18,7 +18,7 @@
 					<li class="nav_divider"></li>
 					<li class="account"><?php echo HTML::anchor(Route::get('account')->uri(array('action' => 'profile')), '<img src="/images/nav/my_account.gif" width="10" height="13" alt="' . HTML::chars(__('My Account')) . '"> ' . HTML::chars(__('My Account'))); ?></li>
 					<?php } else { ?>
-					<li class="login"><?php echo HTML::anchor(Route::get('login')->uri(), '<img src="/images/nav/logout.gif" width="10" height="13" alt="' . HTML::chars(__('Login')) . '"> ' . HTML::chars(__('Login')) . '</a>'); ?></li>
+					<li class="login"><?php echo HTML::anchor(Route::get('login')->uri(), '<img src="/images/nav/logout.gif" width="10" height="13" alt="' . HTML::chars(__('Login')) . '"> ' . HTML::chars(__('Login'))); ?></li>
 					<?php } // if logged in ?>
 					<li class="nav_divider"></li>
 				</ul>
@@ -30,7 +30,7 @@
 				<ul>
 					<li class="home"><?php echo HTML::anchor('', __('Home')); ?></li>
 					<li class="nav_divider"></li>
-					<li class="aboutus"><?php echo HTML::anchor(Route::get('pages')->uri(array('page' => 'aboutus')), HTML::chars(__('About Us'))); ?></a>
+					<li class="aboutus"><?php echo HTML::anchor(Route::get('pages')->uri(array('page' => 'aboutus')), HTML::chars(__('About Us'))); ?>
 						<ul class="sub_nav">
 							<li class="ourpeople"><?php echo HTML::anchor(Route::get('pages_section')->uri(array('section' => 'aboutus', 'page' => 'ourpeople')), HTML::chars(__('Our People'))); ?></li>
 						</ul>
