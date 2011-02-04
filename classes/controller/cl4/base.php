@@ -232,10 +232,10 @@ class Controller_cl4_Base extends Controller_Template {
 	*/
 	public function add_template_styles() {
 		$this->template->styles = array(
-			'css/reset.css' => 'screen',
-			'//ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/themes/pepper-grinder/jquery-ui.css' => 'screen',
-			'cl4/css/cl4.css' => 'screen',
-			'css/base.css' => 'screen',
+			'css/reset.css' => NULL,
+			'//ajax.googleapis.com/ajax/libs/jqueryui/1.8.9/themes/pepper-grinder/jquery-ui.css' => NULL,
+			'cl4/css/cl4.css' => NULL,
+			'css/base.css' => NULL,
 		);
 
 		return $this;
@@ -246,7 +246,7 @@ class Controller_cl4_Base extends Controller_Template {
 	*/
 	protected function add_public_css() {
 		if ($this->auto_render) {
-			$this->template->styles['css/public.css'] = 'screen';
+			$this->template->styles['css/public.css'] = NULL;
 		}
 	} // function add_admin_css
 
@@ -255,7 +255,7 @@ class Controller_cl4_Base extends Controller_Template {
 	*/
 	protected function add_admin_css() {
 		if ($this->auto_render) {
-			$this->template->styles['css/admin.css'] = 'screen';
+			$this->template->styles['css/admin.css'] = NULL;
 		}
 	} // function add_admin_css
 
