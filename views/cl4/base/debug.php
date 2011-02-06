@@ -31,8 +31,12 @@ echo EOL . EOL . '<!-- DEBUG START -->' . EOL; ?>
 	#kohana_error ol.trace li { margin: 0; padding: 0; }
 .js .collapsed { display: none; }
 </style>
+
 <script type="text/javascript">
-document.documentElement.className = 'js';
+if (typeof(Modernizr) == 'undefined') {
+	// only add the js class to the html element if Modernizr doesn't exist because Modernizr will add the class as well
+	document.documentElement.className = document.documentElement.className + ' js';
+}
 function koggle(elem)
 {
 	elem = document.getElementById(elem);
