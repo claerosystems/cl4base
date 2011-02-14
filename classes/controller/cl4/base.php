@@ -56,7 +56,7 @@ class Controller_cl4_Base extends Controller_Template {
 			$language_selection = TRUE;
 			try {
 				// use the locale parameter from the route, if not set, then the cookie, if not set, then use the first locale in the list
-				$this->locale = Request::instance()->param('locale', Cookie::get('language', $this->allowed_languages[0]));
+				$this->locale = Request::current()->param('locale', Cookie::get('language', $this->allowed_languages[0]));
 				// make sure the locale is valid
 				if ( ! in_array($this->locale, $this->allowed_languages)) $this->locale = $this->allowed_languages[0];
 				// set up the locale
@@ -73,13 +73,13 @@ class Controller_cl4_Base extends Controller_Template {
 				// french, set the date
 				setlocale(LC_TIME, 'fr_CA.utf8');
 				// create the switch lanuage link
-				$language_switch_link = '<a href="/' . Request::instance()->uri(array('lang' => 'en-ca')) . '">EN</a> / FR';
+				$language_switch_link = '<a href="/' . Request::current()->uri(array('lang' => 'en-ca')) . '">EN</a> / FR';
 				$date_input_options = "            format: 'dddd dd, mmmm yyyy'" . EOL;
 			} else {
 				// english, set the date
 				setlocale(LC_TIME, 'en_CA.utf8');
 				// create the switch lanuage link
-				$language_switch_link = 'EN / <a href="/' . Request::instance()->uri(array('lang' => 'fr-ca')) . '">FR</a>';
+				$language_switch_link = 'EN / <a href="/' . Request::current()->uri(array('lang' => 'fr-ca')) . '">FR</a>';
 				$date_input_options = "            lang: 'fr', " . EOL; // defined in master js file, must execute before this does
 				$date_input_options .= "            format: 'dddd mmmm dd, yyyy'" . EOL;
 			} // if
@@ -98,7 +98,7 @@ class Controller_cl4_Base extends Controller_Template {
 			$this->template->url_root = URL_ROOT;
 			$this->template->this_page = $this->this_page;
 			$this->template->page_section = $this->section;
-			$this->template->page_name = ( ! empty($this->page) ? $this->page : $this->request->controller);
+			$this->template->page_name = ( ! empty($this->page) ? $this->page : Request::current()->controller());
 
 			$this->set_template_page_title();
 
@@ -139,17 +139,17 @@ class Controller_cl4_Base extends Controller_Template {
 
 		// ***** Authentication *****
 		// check to see if they are allowed to access the action
-		if ( ! Auth::instance()->controller_allowed($this, Request::instance()->action)) {
+		if ( ! Auth::instance()->controller_allowed($this, Request::current()->action())) {
 			if ($this->logged_in) {
 				// user is logged in but not allowed to access the page/action
-				Request::instance()->redirect(Route::get('login')->uri(array('action' => 'noaccess')) . URL::array_to_query(array('referrer' => Request::instance()->uri()), '&'));
+				Request::current()->redirect(Route::get('login')->uri(array('action' => 'noaccess')) . URL::array_to_query(array('referrer' => Request::current()->uri()), '&'));
 			} else {
 				if (Auth::instance()->timed_out()) {
 					// display password page because the sesion has timeout
-					Request::instance()->redirect(Route::get('login')->uri(array('action' => 'timedout')) . URL::array_to_query(array('redirect' => Request::instance()->uri()), '&'));
+					Request::current()->redirect(Route::get('login')->uri(array('action' => 'timedout')) . URL::array_to_query(array('redirect' => Request::current()->uri()), '&'));
 				} else {
 					// just not logged in, so redirect them to the login with a redirect parameter back to the current page
-					Request::instance()->redirect(Route::get('login')->uri() . URL::array_to_query(array('redirect' => Request::instance()->uri()), '&'));
+					Request::current()->redirect(Route::get('login')->uri() . URL::array_to_query(array('redirect' => Request::current()->uri()), '&'));
 				}
 			} // if
 		} // if
@@ -317,8 +317,8 @@ class Controller_cl4_Base extends Controller_Template {
 		$locale = (empty($this->locale) ? $this->allowed_languages[0] : $this->locale);
 
 		// return a 404 because the page couldn't be found
-		Request::instance()->status = 404;
+		Request::current()->status = 404;
 		$this->template->body_html = View::factory('pages/' . $locale . '/404')
-			->set('message', Request::$messages[404]);
+			->set('message', Response::$messages[404]);
 	} // function action_404
 } // class Controller_Base

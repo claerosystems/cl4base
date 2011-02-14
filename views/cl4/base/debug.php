@@ -68,33 +68,33 @@ function koggle(elem)
 			<h3><a href="#<?php echo $env_id = $error_id.'environment_included' ?>" onclick="return koggle('<?php echo $env_id ?>')"><?php echo __('Included files') ?></a> (<?php echo count($included) ?>)</h3>
 			<div id="<?php echo $env_id ?>" class="collapsed">
 				<table cellspacing="0">
-					<?php foreach ($included as $file): ?>
+					<?php foreach ($included as $file) { ?>
 					<tr>
-						<td><code><?php echo Kohana::debug_path($file) ?></code></td>
+						<td><code><?php echo Debug::path($file) ?></code></td>
 					</tr>
-					<?php endforeach ?>
+					<?php } // foreach ?>
 				</table>
 			</div>
 			<?php $included = get_loaded_extensions() ?>
 			<h3><a href="#<?php echo $env_id = $error_id.'environment_loaded' ?>" onclick="return koggle('<?php echo $env_id ?>')"><?php echo __('Loaded extensions') ?></a> (<?php echo count($included) ?>)</h3>
 			<div id="<?php echo $env_id ?>" class="collapsed">
 				<table cellspacing="0">
-					<?php foreach ($included as $file): ?>
+					<?php foreach ($included as $file) { ?>
 					<tr>
-						<td><code><?php echo Kohana::debug_path($file) ?></code></td>
+						<td><code><?php echo Debug::path($file) ?></code></td>
 					</tr>
-					<?php endforeach ?>
+					<?php } // foreach ?>
 				</table>
 			</div>
 			<?php foreach (array('_SESSION', '_GET', '_POST', '_FILES', '_COOKIE', '_SERVER') as $var) { ?>
-			<?php if (empty($GLOBALS[$var]) OR ! is_array($GLOBALS[$var])) continue ?>
+			<?php if (empty($GLOBALS[$var]) || ! is_array($GLOBALS[$var])) continue ?>
 			<h3><a href="#<?php echo $env_id = $error_id.'environment'.strtolower($var) ?>" onclick="return koggle('<?php echo $env_id ?>')">$<?php echo $var ?></a></h3>
 			<div id="<?php echo $env_id ?>" class="collapsed">
 				<table cellspacing="0">
 					<?php foreach ($GLOBALS[$var] as $key => $value) { ?>
 					<tr>
 						<td><code><?php echo HTML::chars($key) ?></code></td>
-						<td><pre><?php echo Kohana::dump($value) ?></pre></td>
+						<td><pre><?php echo Debug::dump($value) ?></pre></td>
 					</tr>
 					<?php } // foreach ?>
 				</table>
@@ -107,7 +107,7 @@ function koggle(elem)
 					<?php foreach ($session as $key => $value) { ?>
 					<tr>
 						<td><code><?php echo HTML::chars($key) ?></code></td>
-						<td style="width:90%;"><pre><?php echo Kohana::dump($value) ?></pre></td>
+						<td style="width:90%;"><pre><?php echo Debug::dump($value) ?></pre></td>
 					</tr>
 					<?php } // foreach ?>
 				</table>

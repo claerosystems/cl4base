@@ -10,8 +10,8 @@ class Controller_cl4_Page extends Controller_Base {
 	// load a web page in to the default template from file or database
 	// special case for overview ages of web site 'sections'
 	public function action_index() {
-		$this->page = Request::instance()->param('page');
-		$this->section = Request::instance()->param('section');
+		$this->page = $this->request->param('page');
+		$this->section = $this->request->param('section');
 
 		// get the page from the static templates or database
 		try {
