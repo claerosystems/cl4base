@@ -3,15 +3,14 @@
 class Controller_cl4_Base extends Controller_Template {
 	public $template = 'cl4/base/base'; // this is the default template file
 	public $allowed_languages = array('en-ca'); // set allowed languages
-	public $page = NULL;
-	public $section = NULL;
-	public $locale = NULL; // the locale string, eg. 'en-ca' or 'fr-ca'
-	public $language = NULL; // the two-letter language code, eg. 'en' or 'fr'
-	public $this_page = NULL;
+	public $page;
+	public $section;
+	public $locale; // the locale string, eg. 'en-ca' or 'fr-ca'
+	public $language; // the two-letter language code, eg. 'en' or 'fr'
 
 	protected $user; // currently logged-in user
 	protected $logged_in = FALSE; // whether user is logged in
-	protected $session = NULL;
+	protected $session;
 
 	// if set to false, the messages will not automatically be displayed (need to display them manually)
 	protected $display_messages = TRUE;
@@ -45,11 +44,6 @@ class Controller_cl4_Base extends Controller_Template {
 		parent::before();
 
 		$this->check_login();
-
-		// set up the controller properties
-		if (isset($_SERVER['SERVER_NAME']) && $_SERVER['REQUEST_URI']) {
-			$this->this_page = $_SERVER['SERVER_NAME'] . $_SERVER['REQUEST_URI'];
-		}
 
 		// initialize the locale if there are allowed languages
 		if ( ! empty($this->allowed_languages) && count($this->allowed_languages) > 1) {
@@ -95,8 +89,6 @@ class Controller_cl4_Base extends Controller_Template {
 			$this->template->logged_in = $this->logged_in;
 			$this->template->user = $this->user;
 
-			$this->template->url_root = URL_ROOT;
-			$this->template->this_page = $this->this_page;
 			$this->template->page_section = $this->section;
 			$this->template->page_name = ( ! empty($this->page) ? $this->page : Request::current()->controller());
 
