@@ -273,19 +273,6 @@ class Controller_cl4_Base extends Controller_Template {
 				$this->template->body_class .= ' s_' . $this->section;
 			}
 
-			// set up the css depending on the browser type, these files override trialto.css
-			switch (BROWSER_TYPE) {
-				case 'mobile_safari':
-					//$styles['css/iphone.css'] = 'screen';
-					break;
-				case 'mobile_default':
-					//$styles['css/mobile.css'] = 'screen';
-					break;
-				case 'pc_default':
-				default:
-					break;
-			} // switch
-
 			// set up any language specific styles
 			switch ($this->language) {
 				case 'en':
