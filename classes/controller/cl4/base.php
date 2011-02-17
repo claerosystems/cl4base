@@ -113,6 +113,11 @@ class Controller_cl4_Base extends Controller_Template {
 		} // if
 	} // function before
 
+	/**
+	* Stores the session by reference in the $session
+	*
+	* @return  void
+	*/
 	public function get_session() {
 		$this->session =& Session::instance()->as_array();
 	}
