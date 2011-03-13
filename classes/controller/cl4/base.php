@@ -126,7 +126,7 @@ class Controller_cl4_Base extends Controller_Template {
 	* Checks if the user is logged in and if they have permissions to the current action
 	* If the user is not logged in, then they are redirected to the timed out page or login page
 	* If the user is logged in, but not allowed, then they are sent to the no access page
-	* If they are logged in and have access, then it will updat the time stamp in the session
+	* If they are logged in and have access, then it will updat the timestamp in the session
 	*
 	* @return  Controller_Base
 	*/
@@ -142,6 +142,9 @@ class Controller_cl4_Base extends Controller_Template {
 				Request::current()->redirect(Route::get('login')->uri(array('action' => 'noaccess')) . URL::array_to_query(array('referrer' => Request::current()->uri()), '&'));
 			} else {
 				if (Auth::instance()->timed_out()) {
+					// store the get and post if timeout post is enabled
+					$this->process_timeout();
+
 					// display password page because the sesion has timeout
 					Request::current()->redirect(Route::get('login')->uri(array('action' => 'timedout')) . URL::array_to_query(array('redirect' => Request::current()->uri()), '&'));
 				} else {
@@ -161,6 +164,29 @@ class Controller_cl4_Base extends Controller_Template {
 
 		return $this;
 	} // function check_login
+
+	/**
+	* If the login timeout post functionality is enabled, this will store the passed
+	* GET and POST in the session key for use in Controller_cl4_Login to re-post the data.
+	* If there is no get or post, this will unset the session key
+	*
+	* @return  void
+	*/
+	protected function process_timeout() {
+		if (Kohana::config('cl4login.enable_timeout_post')) {
+			// store the post so we can post it again after the user enters their password
+			$timeout_post_session_key = Kohana::config('cl4login.timeout_post_session_key');
+			if ( ! empty($_GET) || ! empty($_POST)) {
+				$this->session[$timeout_post_session_key] = array(
+					'post_to' => $this->request->uri,
+					'get' => $_GET,
+					'post' => $_POST,
+				);
+			} else if ( ! empty($this->session[$timeout_post_session_key])) {
+				unset($this->session[$timeout_post_session_key]);
+			}
+		} // if
+	} // function process_timeout
 
 	/**
 	* Sets the page title to an empty string
