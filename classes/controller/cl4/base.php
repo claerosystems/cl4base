@@ -127,6 +127,7 @@ class Controller_cl4_Base extends Controller_Template {
 	* If the user is not logged in, then they are redirected to the timed out page or login page
 	* If the user is logged in, but not allowed, then they are sent to the no access page
 	* If they are logged in and have access, then it will updat the timestamp in the session
+	* If c_ajax == 1, then a JSON string will be returned instead, using AJAX_Status and it's constants
 	*
 	* @return  Controller_Base
 	*/
@@ -137,19 +138,43 @@ class Controller_cl4_Base extends Controller_Template {
 		// ***** Authentication *****
 		// check to see if they are allowed to access the action
 		if ( ! Auth::instance()->controller_allowed($this, Request::current()->action())) {
+			$is_ajax = (bool) cl4::get_param('c_ajax', FALSE);
 			if ($this->logged_in) {
 				// user is logged in but not allowed to access the page/action
-				Request::current()->redirect(Route::get('login')->uri(array('action' => 'noaccess')) . URL::array_to_query(array('referrer' => Request::current()->uri()), '&'));
+				if ($is_ajax) {
+					echo AJAX_Status::ajax(array(
+						'status' => AJAX_Status::NOT_ALLOWED,
+						'debug_msg' => 'Referrer: ' . Request::current()->uri(),
+					));
+					exit;
+				} else {
+					Request::current()->redirect(Route::get('login')->uri(array('action' => 'noaccess')) . URL::array_to_query(array('referrer' => Request::current()->uri()), '&'));
+				}
 			} else {
 				if (Auth::instance()->timed_out()) {
-					// store the get and post if timeout post is enabled
-					$this->process_timeout();
+					if ($is_ajax) {
+						echo AJAX_Status::ajax(array(
+							'status' => AJAX_Status::TIMEDOUT,
+						));
+						exit;
+					} else {
+						// store the get and post if timeout post is enabled
+						$this->process_timeout();
 
-					// display password page because the sesion has timeout
-					Request::current()->redirect(Route::get('login')->uri(array('action' => 'timedout')) . URL::array_to_query(array('redirect' => Request::current()->uri()), '&'));
+						// display password page because the sesion has timeout
+						Request::current()->redirect(Route::get('login')->uri(array('action' => 'timedout')) . URL::array_to_query(array('redirect' => Request::current()->uri()), '&'));
+					}
 				} else {
-					// just not logged in, so redirect them to the login with a redirect parameter back to the current page
-					Request::current()->redirect(Route::get('login')->uri() . URL::array_to_query(array('redirect' => Request::current()->uri()), '&'));
+					if ($is_ajax) {
+						// just not logged in and is ajax so return a json array with the status of not logged in
+						echo AJAX_Status::ajax(array(
+							'status' => AJAX_Status::NOT_LOGGED_IN,
+						));
+						exit;
+					} else {
+						// just not logged in, so redirect them to the login with a redirect parameter back to the current page
+						Request::current()->redirect(Route::get('login')->uri() . URL::array_to_query(array('redirect' => Request::current()->uri()), '&'));
+					}
 				}
 			} // if
 		} // if
@@ -226,6 +251,7 @@ class Controller_cl4_Base extends Controller_Template {
 		if ( ! isset($this->template->scripts['jquery'])) $this->template->scripts['jquery'] = '//ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js';
 		if ( ! isset($this->template->scripts['jquery_ui'])) $this->template->scripts['jquery_ui'] = '//ajax.googleapis.com/ajax/libs/jqueryui/1.8.10/jquery-ui.min.js';
 		if ( ! isset($this->template->scripts['cl4'])) $this->template->scripts['cl4'] = 'cl4/js/cl4.js';
+		if ( ! isset($this->template->scripts['cl4_ajax'])) $this->template->scripts['cl4_ajax'] = 'cl4/js/ajax.js';
 		if ( ! isset($this->template->scripts['base'])) $this->template->scripts['base'] = 'js/base.js';
 
 		if (empty($this->template->on_load_js)) $this->template->on_load_js = '';
