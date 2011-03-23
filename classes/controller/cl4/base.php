@@ -10,6 +10,11 @@ class Controller_cl4_Base extends Controller_Template {
 
 	protected $user; // currently logged-in user
 	protected $logged_in = FALSE; // whether user is logged in
+
+	/**
+	* Stores the session as an array, by reference after the first call of $this->get_session()
+	* @var  array
+	*/
 	protected $session;
 
 	// if set to false, the messages will not automatically be displayed (need to display them manually)
@@ -39,7 +44,7 @@ class Controller_cl4_Base extends Controller_Template {
 	* Called before our action method
 	*/
 	public function before() {
-		$this->get_session();
+		$this->set_session();
 
 		parent::before();
 
@@ -116,9 +121,9 @@ class Controller_cl4_Base extends Controller_Template {
 	/**
 	* Stores the session by reference in the $session
 	*
-	* @return  void
+	* @return  array
 	*/
-	public function get_session() {
+	public function set_session() {
 		$this->session =& Session::instance()->as_array();
 	}
 
