@@ -15,8 +15,10 @@
 				<ul>
 					<?php if ($logged_in) { ?>
 					<li class="logout"><?php echo HTML::anchor(Route::get('login')->uri(array('action' => 'logout')), '<img src="/images/nav/logout.gif" width="12" height="12" alt="' . HTML::chars(__('Logout')) . '"> ' . HTML::chars(__('Logout'))); ?></li>
+					<?php if (Auth::instance()->allowed('account/profile')) { ?>
 					<li class="nav_divider"></li>
 					<li class="account"><?php echo HTML::anchor(Route::get('account')->uri(array('action' => 'profile')), '<img src="/images/nav/my_account.gif" width="10" height="13" alt="' . HTML::chars(__('My Account')) . '"> ' . HTML::chars(__('My Account'))); ?></li>
+					<?php } // if ?>
 					<?php } else { ?>
 					<li class="login"><?php echo HTML::anchor(Route::get('login')->uri(), '<img src="/images/nav/logout.gif" width="10" height="13" alt="' . HTML::chars(__('Login')) . '"> ' . HTML::chars(__('Login'))); ?></li>
 					<?php } // if logged in ?>
