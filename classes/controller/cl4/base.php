@@ -359,7 +359,16 @@ class Controller_cl4_Base extends Controller_Template {
 
 		// return a 404 because the page couldn't be found
 		Request::current()->status = 404;
-		$this->template->body_html = View::factory('pages/' . $locale . '/404')
-			->set('message', Response::$messages[404]);
+
+		if (cl4::get_param('c_ajax', FALSE)) {
+			echo AJAX_Status::ajax(array(
+				'status' => AJAX_Status::NOT_FOUND_404,
+				'debug_msg' => 'Requested URL: ' . $_SERVER['REQUEST_URI'],
+			));
+			exit;
+		} else {
+			$this->template->body_html = View::factory('pages/' . $locale . '/404')
+				->set('message', Response::$messages[404]);
+		}
 	} // function action_404
 } // class Controller_Base
