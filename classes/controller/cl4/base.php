@@ -208,7 +208,7 @@ class Controller_cl4_Base extends Controller_Template {
 			$timeout_post_session_key = Kohana::config('cl4login.timeout_post_session_key');
 			if ( ! empty($_GET) || ! empty($_POST)) {
 				$this->session[$timeout_post_session_key] = array(
-					'post_to' => $this->request->uri,
+					'post_to' => $this->request->uri(),
 					'get' => $_GET,
 					'post' => $_POST,
 				);
