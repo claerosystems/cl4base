@@ -2,7 +2,7 @@
 <html <?php if (isset($language)) { ?>lang="<?php echo HTML::chars($language); ?>" <?php } ?>class="no-js">
 <head>
 	<meta charset="utf-8"><?php
-if ( ! DEBUG_FLAG) { ?><!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge;chrome=1"><![endif]--><?php } echo EOL; ?>
+if ( ! DEBUG_FLAG) { echo EOL . TAB; ?><!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge;chrome=1"><![endif]--><?php } echo EOL; ?>
 	<title><?php
 if (DEVELOPMENT_FLAG) {
 	echo '*** ' . HTML::chars(SHORT_NAME . ' v' . APP_VERSION) . ' Development Site *** ';
