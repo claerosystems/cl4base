@@ -253,7 +253,7 @@ class Controller_cl4_Base extends Controller_Template {
 
 		if (empty($this->template->scripts)) $this->template->scripts = array();
 		// add jquery js (for all pages, other js relies on it, so it has to be included first)
-		if ( ! isset($this->template->scripts['jquery'])) $this->template->scripts['jquery'] = '//ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js';
+		if ( ! isset($this->template->scripts['jquery'])) $this->template->scripts['jquery'] = '//ajax.googleapis.com/ajax/libs/jquery/1.5.2/jquery.min.js';
 		if ( ! isset($this->template->scripts['jquery_ui'])) $this->template->scripts['jquery_ui'] = '//ajax.googleapis.com/ajax/libs/jqueryui/1.8.11/jquery-ui.min.js';
 		if ( ! isset($this->template->scripts['cl4'])) $this->template->scripts['cl4'] = 'cl4/js/cl4.js';
 		if ( ! isset($this->template->scripts['cl4_ajax'])) $this->template->scripts['cl4_ajax'] = 'cl4/js/ajax.js';
