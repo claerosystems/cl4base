@@ -327,16 +327,6 @@ class Controller_cl4_Base extends Controller_Template {
 				$this->template->body_class .= ' s_' . $this->section;
 			}
 
-			// set up any language specific styles
-			switch ($this->language) {
-				case 'en':
-					//$styles['css/base_en.css'] = 'screen';
-					break;
-				case 'fr':
-					//$styles['css/base_fr.css'] = 'screen';
-				break;
-			} // switch
-
 			// look for any status message and display
 			if ($this->display_messages) {
 				$this->template->message = Message::display();
