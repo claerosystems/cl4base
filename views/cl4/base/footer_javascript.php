@@ -3,14 +3,14 @@
 foreach ($scripts as $file) echo HTML::script($file) . EOL;
 ?>
 
-<?php // Javascript to run once the page is loaded ?>
+<?php // Javascript to run once the page is loaded
+if ( ! empty($on_load_js)) { ?>
 <script>
 $(function() {
-	$.ajaxSetup({ cache: false }); // don't cache ajax calls
-	$('a').click(function() { this.blur(); }); // avoid lingering borders on selected links
-<?php if ( ! empty($on_load_js)) echo $on_load_js . EOL; ?>
+<?php echo $on_load_js . EOL; ?>
 });
 </script>
+<?php } // if ?>
 <!--[if lte IE 6]>
 <script>
 $(function() {
