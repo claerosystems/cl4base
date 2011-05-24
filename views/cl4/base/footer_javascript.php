@@ -7,6 +7,14 @@ if (isset($scripts['jquery'])) {
 	unset($scripts['jquery']);
 } // if
 
+// if jQuery UI is in the array of scripts, then include the path to jQuery UI and also a fallback to a local version
+if (isset($scripts['jquery_ui'])) {
+	echo HTML::script($scripts['jquery_ui']) . EOL; ?>
+<script>window.jQuery.ui || document.write('<script src="/js/jquery-ui.min.js">\x3C/script>')</script>
+<?php
+	unset($scripts['jquery_ui']);
+} // if
+
 // Javascript, put all javascript here or in $on_load_js if possible
 foreach ($scripts as $file) echo HTML::script($file) . EOL;
 ?>
