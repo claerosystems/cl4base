@@ -203,9 +203,9 @@ class Controller_cl4_Base extends Controller_Template {
 	* @return  void
 	*/
 	protected function process_timeout() {
-		if (Kohana::config('cl4login.enable_timeout_post')) {
+		if (Kohana::$config->load('cl4login.enable_timeout_post')) {
 			// store the post so we can post it again after the user enters their password
-			$timeout_post_session_key = Kohana::config('cl4login.timeout_post_session_key');
+			$timeout_post_session_key = Kohana::$config->load('cl4login.timeout_post_session_key');
 			if ( ! empty($_GET) || ! empty($_POST)) {
 				$this->session[$timeout_post_session_key] = array(
 					'post_to' => $this->request->uri(),
