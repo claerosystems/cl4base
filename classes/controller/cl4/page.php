@@ -18,9 +18,9 @@ class Controller_cl4_Page extends Controller_Base {
 			$this->template->body_html .= $this->get_static_template();
 		} catch (Kohana_View_Exception $e) {
 			$this->action_404();
-			cl4::exception_handler($e);
+			Kohana_Exception::caught_handler($e);
 		} catch (Exception $e) {
-			cl4::exception_handler($e);
+			Kohana_Exception::caught_handler($e);
 		}
 	} // function action_index
 
