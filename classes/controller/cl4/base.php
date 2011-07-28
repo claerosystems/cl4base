@@ -72,13 +72,13 @@ class Controller_cl4_Base extends Controller_Template {
 				// french, set the date
 				setlocale(LC_TIME, 'fr_CA.utf8');
 				// create the switch lanuage link
-				$language_switch_link = '<a href="/' . Request::current()->uri(array('lang' => 'en-ca')) . '">EN</a> / FR';
+				$language_switch_link = '<a href="/' . $this->request->route()->uri(array('lang' => 'en-ca')) . '">EN</a> / FR';
 				$date_input_options = "            format: 'dddd dd, mmmm yyyy'" . EOL;
 			} else {
 				// english, set the date
 				setlocale(LC_TIME, 'en_CA.utf8');
 				// create the switch lanuage link
-				$language_switch_link = 'EN / <a href="/' . Request::current()->uri(array('lang' => 'fr-ca')) . '">FR</a>';
+				$language_switch_link = 'EN / <a href="/' . $this->request->route()->uri(array('lang' => 'fr-ca')) . '">FR</a>';
 				$date_input_options = "            lang: 'fr', " . EOL; // defined in master js file, must execute before this does
 				$date_input_options .= "            format: 'dddd mmmm dd, yyyy'" . EOL;
 			} // if
