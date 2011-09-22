@@ -29,7 +29,9 @@ echo EOL . EOL . '<!-- DEBUG START -->' . EOL; ?>
 		#kohana_error pre.source span.line span.number { color: #666; }
 #kohana_error ol.trace { display: block; margin: 0 0 0 2em; padding: 0; list-style: decimal; }
 	#kohana_error ol.trace li { margin: 0; padding: 0; }
-.js .collapsed { display: none; }
+.js .collapsed, .js .kohana_profiler { display: none; }
+.profiler_show { color:#aaa; text-align:center; }
+.profiler_show:hover { color:#333; }
 </style>
 
 <script type="text/javascript">
@@ -56,8 +58,8 @@ function koggle(elem)
 	return false;
 }
 </script>
-
-<div id="kohana_profiler">
+<a href="#<?php echo $env_id = $error_id . 'kohana_profiler' ?>" onclick="return koggle('<?php echo $env_id; ?>')" class="profiler_show"><?php echo __('Profiler / Debug') ?></a>
+<div id="<?php echo $env_id; ?>" class="kohana_profiler">
 	<?php echo View::factory('profiler/stats'); ?>
 
 	<?php // this comes from views/kohana/error.php (including the CSS and JS above) it doesn't look like there's a way to get just this, so this is the best I can do for now ?>
