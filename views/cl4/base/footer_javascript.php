@@ -27,15 +27,3 @@ $(function() {
 });
 </script>
 <?php } // if ?>
-<!--[if lte IE 6]>
-<script>
-$(function() {
-<?php // this is for the menu as IE6 and below don't support rollovers on li's ?>
-	$('.main_nav ul li').hover(function() {
-		$(this).children('.sub_nav').show();
-	}, function() {
-		$(this).children('.sub_nav').hide();
-	});
-});
-</script>
-<![endif]-->
