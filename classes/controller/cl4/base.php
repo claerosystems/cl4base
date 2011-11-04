@@ -48,7 +48,9 @@ class Controller_cl4_Base extends Controller_Template {
 
 		parent::before();
 
-		$this->check_login();
+		if ( ! Kohana::$is_cli) {
+			$this->check_login();
+		}
 
 		// initialize the locale if there are allowed languages
 		if ( ! empty($this->allowed_languages) && count($this->allowed_languages) > 1) {
