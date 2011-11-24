@@ -44,6 +44,12 @@ class Controller_cl4_Base extends Controller_Template {
 	* Called before our action method
 	*/
 	public function before() {
+		// site unavailable check
+		if (defined('UNAVAILABLE_FLAG') && UNAVAILABLE_FLAG) {
+			// site is currently unavailable, change the action to unavailable
+			Request::current()->action('unavailable');
+		}
+
 		$this->set_session();
 
 		parent::before();
@@ -363,4 +369,26 @@ class Controller_cl4_Base extends Controller_Template {
 				->set('message', Response::$messages[404]);
 		}
 	} // function action_404
+
+	/**
+	* called when the site constant UNAVAILABLE_FLAG is defined and TRUE, normally disables the site
+	*
+	*/
+	public function action_unavailable() {
+		$locale = (empty($this->locale) ? $this->allowed_languages[0] : $this->locale);
+
+		// return a 404 because the page couldn't be found
+		Request::current()->status = 503; // 503 is service unavailable
+
+		if (cl4::get_param('c_ajax', FALSE)) {
+			echo AJAX_Status::ajax(array(
+				'status' => AJAX_Status::SITE_UNAVAILABLE,
+				'debug_msg' => 'Site unavailable, requested URL: ' . $_SERVER['REQUEST_URI'],
+			));
+			exit;
+		} else {
+			$this->template->body_html = View::factory('pages/' . $locale . '/unavailable')
+				->set('message', Response::$messages[503]); // 503 is service unavailable
+		}
+	}
 } // class Controller_Base
