@@ -41,9 +41,18 @@ class Controller_cl4_Base extends Controller_Template {
 	public $secure_actions = FALSE;
 
 	/**
+	 * @var  array  An array of actions as found in the request that shouldn't use auto_render.
+	 */
+	protected $no_auto_render_actions = array();
+
+	/**
 	* Called before our action method
 	*/
 	public function before() {
+		if (in_array($this->request->action(), $this->no_auto_render_actions)) {
+			$this->auto_render = FALSE;
+		}
+
 		// site unavailable check
 		if (defined('UNAVAILABLE_FLAG') && UNAVAILABLE_FLAG) {
 			// site is currently unavailable, change the action to unavailable
