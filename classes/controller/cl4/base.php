@@ -346,7 +346,7 @@ class Controller_cl4_Base extends Controller_Template {
 
 			// look for any status message and display
 			if ($this->display_messages) {
-				$this->template->message = trim(Message::display());
+				$this->template->message = UTF8::trim(Message::display());
 			}
 
 			if (cl4::is_dev()) {
