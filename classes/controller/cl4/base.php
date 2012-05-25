@@ -170,7 +170,7 @@ class Controller_cl4_Base extends Controller_Template {
 					));
 					exit;
 				} else {
-					Request::current()->redirect(Route::get('login')->uri(array('action' => 'noaccess')) . URL::array_to_query(array('referrer' => Request::current()->uri()), '&'));
+					Request::current()->redirect(Route::get('login')->uri(array('action' => 'noaccess')) . URL::array_to_query(array('referrer' => Request::current()->uri() . '?' . http_build_query($_GET)), '&'));
 				}
 			} else {
 				if (Auth::instance()->timed_out()) {
@@ -184,7 +184,7 @@ class Controller_cl4_Base extends Controller_Template {
 						$this->process_timeout();
 
 						// display password page because the sesion has timeout
-						Request::current()->redirect(Route::get('login')->uri(array('action' => 'timedout')) . URL::array_to_query(array('redirect' => Request::current()->uri()), '&'));
+						Request::current()->redirect(Route::get('login')->uri(array('action' => 'timedout')) . URL::array_to_query(array('redirect' => Request::current()->uri() . '?' . http_build_query($_GET)), '&'));
 					}
 				} else {
 					if ($is_ajax) {
@@ -195,7 +195,7 @@ class Controller_cl4_Base extends Controller_Template {
 						exit;
 					} else {
 						// just not logged in, so redirect them to the login with a redirect parameter back to the current page
-						Request::current()->redirect(Route::get('login')->uri() . URL::array_to_query(array('redirect' => Request::current()->uri()), '&'));
+						Request::current()->redirect(Route::get('login')->uri() . URL::array_to_query(array('redirect' => Request::current()->uri() . '?' . http_build_query($_GET)), '&'));
 					}
 				}
 			} // if
