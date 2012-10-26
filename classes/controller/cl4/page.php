@@ -1,6 +1,6 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
-class Controller_cl4_Page extends Controller_Base {
+class Controller_Cl4_Page extends Controller_Base {
 	public function before() {
 		parent::before();
 

@@ -22,9 +22,9 @@ foreach ($styles as $file => $type) echo TAB . HTML::style($file, array('media' 
 // http://www.modernizr.com fixes missing html5 elements in IE and detects for new HTML5 features; this needs to be loaded here so the HTML5 tags will show in IE
 echo "\t" . HTML::script($modernizr_path) . EOL; ?>
 	<script>
-		var cl4_in_debug = <?php echo (int) DEBUG_FLAG; ?>;
-		var cl4_page_locale = '<?php echo addslashes(i18n::lang()); ?>';
-		var cl4_page_section = '<?php echo addslashes($page_section); ?>';
-		var cl4_page_name = '<?php echo addslashes($page_name); ?>';
+		var Cl4_in_debug = <?php echo (int) DEBUG_FLAG; ?>;
+		var Cl4_page_locale = '<?php echo addslashes(i18n::lang()); ?>';
+		var Cl4_page_section = '<?php echo addslashes($page_section); ?>';
+		var Cl4_page_name = '<?php echo addslashes($page_name); ?>';
 	</script>
 </head>
