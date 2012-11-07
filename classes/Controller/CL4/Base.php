@@ -1,6 +1,6 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
-class Controller_Cl4_Base extends Controller_Template {
+class Controller_CL4_Base extends Controller_Template {
 	public $template = 'cl4/base/base'; // this is the default template file
 	public $allowed_languages = array('en-ca'); // set allowed languages
 	public $page;
@@ -63,7 +63,7 @@ class Controller_Cl4_Base extends Controller_Template {
 
 		parent::before();
 
-		if ( ! Kohana::$is_cli) {
+		if (PHP_SAPI != 'cli') {
 			$this->check_login();
 		}
 
@@ -160,7 +160,7 @@ class Controller_Cl4_Base extends Controller_Template {
 		// ***** Authentication *****
 		// check to see if they are allowed to access the action
 		if ( ! Auth::instance()->controller_allowed($this, Request::current()->action())) {
-			$is_ajax = (bool) Cl4::get_param('c_ajax', FALSE);
+			$is_ajax = (bool) CL4::get_param('c_ajax', FALSE);
 			if ($this->logged_in) {
 				// user is logged in but not allowed to access the page/action
 				if ($is_ajax) {
@@ -360,7 +360,7 @@ class Controller_Cl4_Base extends Controller_Template {
 				$this->template->message = UTF8::trim(Message::display());
 			}
 
-			if (Cl4::is_dev()) {
+			if (CL4::is_dev()) {
 				// this is so a session isn't started needlessly when in debug mode
 				$this->template->session = $this->session;
 			}
@@ -378,7 +378,7 @@ class Controller_Cl4_Base extends Controller_Template {
 		// return a 404 because the page couldn't be found
 		Request::current()->status = 404;
 
-		if (Cl4::get_param('c_ajax', FALSE)) {
+		if (CL4::get_param('c_ajax', FALSE)) {
 			echo AJAX_Status::ajax(array(
 				'status' => AJAX_Status::NOT_FOUND_404,
 				'debug_msg' => 'Requested URL: ' . $_SERVER['REQUEST_URI'],
@@ -400,7 +400,7 @@ class Controller_Cl4_Base extends Controller_Template {
 		// return a 404 because the page couldn't be found
 		Request::current()->status = 503; // 503 is service unavailable
 
-		if (Cl4::get_param('c_ajax', FALSE)) {
+		if (CL4::get_param('c_ajax', FALSE)) {
 			echo AJAX_Status::ajax(array(
 				'status' => AJAX_Status::SITE_UNAVAILABLE,
 				'debug_msg' => 'Site unavailable, requested URL: ' . $_SERVER['REQUEST_URI'],
