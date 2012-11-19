@@ -171,7 +171,7 @@ class Controller_CL4_Login extends Controller_Base {
 
 		if ( ! empty($timed_out)) {
 			// they have come from the timeout page, so send them back there
-			Request::current()->redirect(Route::get(Route::name(Request::current()->route()))->uri(array('action' => 'timedout')) . $this->get_redirect_query());
+			$this->redirect(Route::get(Route::name($this->request->route()))->uri(array('action' => 'timedout')) . $this->get_redirect_query());
 		}
 
 		$this->template->body_html = View::factory('cl4/cl4login/login')
@@ -191,10 +191,10 @@ class Controller_CL4_Login extends Controller_Base {
 	*/
 	protected function login_success_redirect($redirect = NULL) {
 		if ($redirect !== NULL) {
-			Request::current()->redirect($redirect);
+			$this->redirect($redirect);
 		} else {
 			$auth_config = Kohana::$config->load('auth');
-			Request::current()->redirect(Route::get($auth_config['default_login_redirect'])->uri($auth_config['default_login_redirect_params']));
+			$this->redirect(Route::get($auth_config['default_login_redirect'])->uri($auth_config['default_login_redirect_params']));
 		}
 	} // function login_success_redirect
 
@@ -208,7 +208,7 @@ class Controller_CL4_Login extends Controller_Base {
 			} // if
 
 			// redirect to the user account and then the signin page if logout worked as expected
-			$this->redirect(Route::get(Route::name(Request::current()->route()))->uri() . $this->get_redirect_query());
+			$this->redirect(Route::get(Route::name($this->request->route()))->uri() . $this->get_redirect_query());
 		} catch (Exception $e) {
 			Kohana_Exception::caught_handler($e);
 			Message::add(__(Kohana::message('user', 'username.not_logged_out')), Message::$error);
@@ -216,7 +216,7 @@ class Controller_CL4_Login extends Controller_Base {
 			if ( ! CL4::is_dev()) {
 				// redirect them to the default page
 				$auth_config = Kohana::$config->load('auth');
-				Request::current()->redirect(Route::get($auth_config['default_login_redirect'])->uri($auth_config['default_login_redirect_params']));
+				$this->redirect(Route::get($auth_config['default_login_redirect'])->uri($auth_config['default_login_redirect_params']));
 			}
 		} // try
 	} // function action_logout
@@ -233,7 +233,7 @@ class Controller_CL4_Login extends Controller_Base {
 
 		if ( ! $user || ($max_lifetime > 0 && Auth::instance()->timed_out($max_lifetime))) {
 			// user is not logged in at all or they have reached the maximum amount of time we allow sometime to stay logged in, so redirect them to the login page
-			Request::current()->redirect(Route::get(Route::name(Request::current()->route()))->uri(array('action' => 'logout')) . $this->get_redirect_query());
+			$this->redirect(Route::get(Route::name($this->request->route()))->uri(array('action' => 'logout')) . $this->get_redirect_query());
 		}
 
 		if (Kohana::$config->load('cl4login.enable_timeout_post') && ! empty($this->session[Kohana::$config->load('cl4login.timeout_post_session_key')])) {
@@ -354,10 +354,10 @@ class Controller_CL4_Login extends Controller_Base {
 						$mail->Subject = LONG_NAME . ' Password Reset';
 
 						// build a link with action reset including their username and the reset token
-						$url = URL::site(Route::get(Route::name(Request::current()->route()))->uri(array('action' => 'reset')) . '?' . http_build_query(array(
+						$url = URL::site(Route::get(Route::name($this->request->route()))->uri(array('action' => 'reset')) . '?' . http_build_query(array(
 							'username' => $user->username,
 							'reset_token' => $user->reset_token,
-						)), Request::current()->protocol());
+						)), FALSE);
 
 						$mail->Body = View::factory('cl4/cl4login/forgot_link')
 							->set('app_name', LONG_NAME)
@@ -387,7 +387,7 @@ class Controller_CL4_Login extends Controller_Base {
 			Kohana_Exception::caught_handler($e);
 			Message::add(__(Kohana::message('login', 'reset_error')), Message::$error);
 		}
-	} // function
+	} // function action_forgot
 
 	/**
 	* A basic version of "reset password" functionality.
@@ -417,7 +417,7 @@ class Controller_CL4_Login extends Controller_Base {
 				// admin passwords cannot be reset by email
 				if (is_numeric($user->id) && ! in_array($user->username, $default_options['admin_accounts'])) {
 					try {
-						$password = cl4_Auth::generate_password();
+						$password = CL4_Auth::generate_password();
 						$user->values(array(
 								'password' => $password,
 								// reset the failed login count
@@ -439,7 +439,7 @@ class Controller_CL4_Login extends Controller_Base {
 						$mail->Subject = LONG_NAME . ' New Password';
 
 						// provide a link to the user including their username
-						$url = URL::site(Route::get(Route::name(Request::current()->route()))->uri() . '?' . http_build_query(array('username' => $user->username)), Request::current()->protocol());
+						$url = URL::site(Route::get(Route::name($this->request->route()))->uri() . '?' . http_build_query(array('username' => $user->username)), FALSE);
 
 						$mail->Body = View::factory('cl4/cl4login/forgot_reset')
 							->set('app_name', LONG_NAME)
@@ -457,96 +457,20 @@ class Controller_CL4_Login extends Controller_Base {
 						throw $e;
 					}
 
-					Request::current()->redirect(Route::get(Route::name(Request::current()->route()))->uri());
+					$this->redirect(Route::get(Route::name($this->request->route()))->uri());
 
 				} else {
 					Message::add(__(Kohana::message('login', 'password_email_username_not_found')), Message::$error);
-					Request::current()->redirect(Route::get(Route::name(Request::current()->route()))->uri(array('action' => 'forgot')));
+					$this->redirect(Route::get(Route::name($this->request->route()))->uri(array('action' => 'forgot')));
 				}
 
 			} else {
 				Message::add(__(Kohana::message('login', 'password_email_partial')), Message::$error);
-				Request::current()->redirect(Route::get(Route::name(Request::current()->route()))->uri(array('action' => 'forgot')));
+				$this->redirect(Route::get(Route::name($this->request->route()))->uri(array('action' => 'forgot')));
 			}
 		} catch (Exception $e) {
 			Kohana_Exception::caught_handler($e);
 			Message::add(__(Kohana::message('login', 'reset_error')), Message::$error);
 		}
-	} // function
-
-		/**
-	 * Registers a new user.
-	 *//*
-	public function action_register() {
-
-		// see if the user is already logged in
-		// todo: do something smarter here, like ask if they want to register a new user?
-		if ($this->auth->logged_in()) {
-			claero::flash_set('message', 'You already have an account.');
-			$this->request->redirect($this->redirectUrl);
-		}
-
-		$this->redirectPage = 'register';
-
-		if (Request::$method == 'POST') {
-            // try to create a new user with the supplied credentials
-            try {
-
-                // check the recaptcha string to make sure it was entered properly
-                require_once(ABS_ROOT . '/lib/recaptcha/recaptchalib.php');
-                $resp = recaptcha_check_answer(RECAPTCHA_PRIVATE_KEY, $_SERVER['REMOTE_ADDR'], $_POST['recaptcha_challenge_field'], $_POST['recaptcha_response_field']);
-                if (!$resp->is_valid) {
-                    claero::flash_set('message', __('The reCAPTCHA text did not match up, please try again.'));
-                    Fire::log('The reCAPTCHA text did not match up, please try again.');
-                } else {
-
-                    // try to create the new user
-                    $newUser = Jelly::factory('user')
-                         ->set(array(
-                            'active_flag' => 0, // already defaulted in database
-                            'date_created' => date('Y-m-d H:i:s'),
-                            'email' => Security::xss_clean(Arr::get($_POST, 'email', '')),
-                            'password' => Security::xss_clean(Arr::get($_POST, 'password', '')),
-                            'password_confirm' => Security::xss_clean(Arr::get($_POST, 'password_confirm', '')),
-                            'first_name' => Security::xss_clean(Arr::get($_POST, 'first_name', '')),
-                            'middle_name' => Security::xss_clean(Arr::get($_POST, 'middle_name', '')),
-                            'last_name' => Security::xss_clean(Arr::get($_POST, 'last_name', '')),
-                            'company' => Security::xss_clean(Arr::get($_POST, 'company', '')),
-                            'province_id' => Security::xss_clean(Arr::get($_POST, 'province_id', '')),
-                            'work_phone' => Security::xss_clean(Arr::get($_POST, 'work_phone', '')),
-                            'mobile_phone' => Security::xss_clean(Arr::get($_POST, 'mobile_phone', '')),
-                         ));
-                    if ($newUser->save()) {
-                        claero::flash_set('message', __("Your account was created successfully."));
-                        $this->redirectPage = 'index';
-                    } // if
-                    //Fire::log('looks like it worked?');
-                } // if
-
-            } catch (Validate_Exception $e) {
-                claero::flash_set('message', __("A validation error occurred, please correct your information and try again."));
-                Fire::log('A validation exception occurred: ');
-                Fire::log($e->array);
-
-            } catch (Exception $e) {
-                Fire::log('Some other exception occured');
-                Fire::log($e);
-                $this->template->body_html .= 'Could not create user. Error: "' . Kohana_Exception::text($e) . '"';
-                claero::flash_set('message', 'An error occurred during registration, please try again later.');
-
-            } // try
-        } else {
-            // invalid request type for registration
-            Fire::log('invalid request type for registration');
-		} // if
-
-        // Redirect to login
-        //$this->request->redirect($this->redirectUrl);
-        fire::log('here we are');
-
-
-        $this->provinceId = Security::xss_clean(Arr::get($_POST, 'province_id', ''));
-
-	} // function action_register
-*/
+	} // function action_reset
 } // class Controller_CL4_Login
