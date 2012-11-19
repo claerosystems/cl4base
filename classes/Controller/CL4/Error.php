@@ -41,7 +41,7 @@ class Controller_CL4_Error extends Controller_Public {
 			exit;
 		} else {
 			$this->template->page_title = Response::$messages[404] . ' - ' . LONG_NAME;
-			$this->template->body_html = View::factory('pages/' . $this->locale . '/error')
+			$this->template->body_html = View::factory('base/error')
 				->set('title', Response::$messages[404])
 				->set('message', $this->message);
 		}
@@ -54,7 +54,7 @@ class Controller_CL4_Error extends Controller_Public {
 	 */
 	public function action_500() {
 		$this->template->page_title = Response::$messages[500] . ' - ' . LONG_NAME;
-		$this->template->body_html = View::factory('pages/' . $this->locale . '/error')
+		$this->template->body_html = View::factory('base/error')
 			->set('title', Response::$messages[500])
 			->set('message', $this->message);
 	}
@@ -66,7 +66,7 @@ class Controller_CL4_Error extends Controller_Public {
 	 */
 	public function action_503() {
 		$this->template->page_title = Response::$messages[503] . ' - ' . LONG_NAME;
-		$this->template->body_html = View::factory('pages/' . $this->locale . '/error')
+		$this->template->body_html = View::factory('base/error')
 			->set('title', Response::$messages[503])
 			->set('message', $this->message);
 	}
