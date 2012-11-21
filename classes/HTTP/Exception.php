@@ -1,3 +1,3 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
-class Controller_Page extends Controller_CL4_Page { }
+class HTTP_Exception extends CL4_HTTP_Exception {}
