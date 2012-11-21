@@ -1,3 +1,3 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
-class Controller_Cl4Admin extends Controller_Cl4_Cl4Admin { }
+class Controller_CL4Admin extends Controller_CL4_CL4Admin { }
