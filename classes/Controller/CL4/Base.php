@@ -169,7 +169,7 @@ class Controller_CL4_Base extends Controller_Template {
 	public function check_login() {
 		// ***** Authentication *****
 		// check to see if they are allowed to access the action
-		if ( ! Auth::instance()->controller_allowed($this, Request::current()->action())) {
+		if ( ! Auth::instance()->controller_allowed($this, $this->request->action())) {
 			$is_ajax = (bool) Arr::get($_REQUEST, 'c_ajax', FALSE);
 
 			if (Auth::instance()->logged_in()) {
@@ -177,7 +177,7 @@ class Controller_CL4_Base extends Controller_Template {
 				if ($is_ajax) {
 					echo AJAX_Status::ajax(array(
 						'status' => AJAX_Status::NOT_ALLOWED,
-						'debug_msg' => 'Referrer: ' . Request::current()->uri(),
+						'debug_msg' => 'Referrer: ' . $this->request->uri(),
 					));
 					exit;
 				} else {
@@ -228,7 +228,7 @@ class Controller_CL4_Base extends Controller_Template {
 	 * @return  string
 	 */
 	protected function get_login_redirect_query() {
-		return URL::array_to_query(array('redirect' => Request::current()->uri() . '?' . http_build_query($_GET)), '&');
+		return URL::array_to_query(array('redirect' => $this->request->uri() . '?' . http_build_query($_GET)), '&');
 	}
 
 	/**
