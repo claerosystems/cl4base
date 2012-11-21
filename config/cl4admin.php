@@ -20,13 +20,13 @@ return array(
 	*/
 	'model_list' => array(
 		// model name => display name
-		'user_admin' => 'User',
-		'auth_log' => 'Auth Log',
-		'auth_type' => 'Auth Type',
-		'group' => 'Group',
-		'group_permission' => 'Group - Permission',
-		'permission' => 'Permission',
-		'user_group' => 'User - Group',
+		'User_Admin' => 'User',
+		'Auth_Log' => 'Auth Log',
+		'Auth_Type' => 'Auth Type',
+		'Group' => 'Group',
+		'Group_Permission' => 'Group - Permission',
+		'Permission' => 'Permission',
+		'User_Group' => 'User - Group',
 	),
 	'default_model' => NULL, // used to determine which model to display by default; if set to null, the default will be the model in model_list
 	// an array of actions that shouldn't be used in permission checking (because it saves on a lot of extra permissions)
