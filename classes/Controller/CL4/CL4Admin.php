@@ -33,7 +33,7 @@ class Controller_Cl4_Cl4Admin extends Controller_Base {
 	* Calls parent::before()
 	*/
 	public function before() {
-		$action = Request::current()->action();
+		$action = $this->request->action();
 
 		parent::before();
 
@@ -44,8 +44,8 @@ class Controller_Cl4_Cl4Admin extends Controller_Base {
 		$this->session_key = Kohana::$config->load('cl4admin.session_key');
 
 		// set the information from the route/get/post parameters
-		$this->model_name = Request::current()->param('model');
-		$this->id = Request::current()->param('id');
+		$this->model_name = $this->request->param('model');
+		$this->id = $this->request->param('id');
 		$page_offset = CL4::get_param('page');
 		$sort_column = CL4::get_param('sort_by_column');
 		$sort_order = CL4::get_param('sort_by_order');
@@ -72,10 +72,10 @@ class Controller_Cl4_Cl4Admin extends Controller_Base {
 
 			// if there is no new model to go to, redirect them to the no access page
 			if (empty($go_to_model)) {
-				Request::current()->redirect('login/noaccess' . URL::array_to_query(array('referrer' => Request::current()->uri()), '&'));
+				$this->redirect('login/noaccess' . URL::array_to_query(array('referrer' => $this->request->uri()), '&'));
 			}
 
-			Request::current()->redirect('dbadmin/' . $go_to_model . '/index');
+			$this->redirect('dbadmin/' . $go_to_model . '/index');
 		} // if
 
 		// check to see the user has permission to access this action
@@ -90,16 +90,16 @@ class Controller_Cl4_Cl4Admin extends Controller_Base {
 				$this->redirect_to_index();
 			} else if ($this->model_name != $default_model && ! empty($default_model)) {
 				Message::message('cl4admin', 'no_permission_item', NULL, Message::$error);
-				Request::current()->redirect('dbadmin/' . $default_model . '/index');
+				$this->redirect('dbadmin/' . $default_model . '/index');
 			} else {
-				Request::current()->redirect('login/noaccess' . URL::array_to_query(array('referrer' => Request::current()->uri()), '&'));
+				$this->redirect('login/noaccess' . URL::array_to_query(array('referrer' => $this->request->uri()), '&'));
 			}
 		} // if
 
 		// redirect the user to a different model as they one they selected isn't valid (not in array of models)
 		if ( ! isset($model_list[$this->model_name]) && ((CL4::is_dev() && $action != 'create' && $action != 'model_create') || ! CL4::is_dev())) {
 			Message::message('cl4admin', 'model_not_defined', array(':model_name' => $this->model_name), Message::$debug);
-			Request::current()->redirect('dbadmin/' . $default_model . '/index');
+			$this->redirect('dbadmin/' . $default_model . '/index');
 		}
 
 		// the first time to the page or first time for this model, so set all the defaults
@@ -674,7 +674,7 @@ class Controller_Cl4_Cl4Admin extends Controller_Base {
 	*/
 	public function check_perm($action = NULL, $model_name = NULL) {
 		if ($action === NULL) {
-			$action = Request::current()->action();
+			$action = $this->request->action();
 		}
 		if ($model_name === NULL) {
 			$model_name = $this->model_name;
@@ -747,11 +747,7 @@ class Controller_Cl4_Cl4Admin extends Controller_Base {
 	* Redirects the user to the index for the current model based on the current route
 	*/
 	function redirect_to_index() {
-		try {
-			Request::current()->redirect('/' . Route::get(Route::name(Request::current()->route()))->uri(array('model' => $this->model_name, 'action' => 'index')));
-		} catch (Exception $e) {
-			Kohana_Exception::caught_handler($e);
-		}
+		$this->redirect('/' . Route::get(Route::name($this->request->route()))->uri(array('model' => $this->model_name, 'action' => 'index')));
 	} // function
 
 	/*****************************

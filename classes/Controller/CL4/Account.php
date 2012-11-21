@@ -30,7 +30,7 @@ class Controller_CL4_Account extends Controller_Base {
 	* If the user is not logged in, this will then redirect to the login page
 	*/
 	public function action_index() {
-		Request::current()->redirect(Route::get(Route::name(Request::current()->route()))->uri(array('action' => 'profile')));
+		$this->redirect(Route::get(Route::name($this->request->route()))->uri(array('action' => 'profile')));
 	} // function
 
 	/**
@@ -39,7 +39,7 @@ class Controller_CL4_Account extends Controller_Base {
 	public function action_cancel() {
 		Message::add('Your last action was cancelled.', Message::$notice);
 
-		Request::current()->redirect(Route::get(Route::name(Request::current()->route()))->uri(array('action' => 'profile')));
+		$this->redirect(Route::get(Route::name($this->request->route()))->uri(array('action' => 'profile')));
 	}
 
 	/**
@@ -69,7 +69,7 @@ class Controller_CL4_Account extends Controller_Base {
 				Auth::instance()->get_user()->reload();
 
 				// redirect because they have changed their name, which is displayed on the page
-				Request::current()->redirect(Route::get(Route::name(Request::current()->route()))->uri(array('action' => 'profile')));
+				$this->redirect(Route::get(Route::name($this->request->route()))->uri(array('action' => 'profile')));
 
 			} catch (ORM_Validation_Exception $e) {
 				Message::message('account', 'profile_save_validation', array(
@@ -93,7 +93,7 @@ class Controller_CL4_Account extends Controller_Base {
 		// prepare the view & form
 		$this->template->body_html = View::factory('cl4/cl4account/profile')
 			->set('edit_fields', $model->get_form(array(
-				'form_action' => URL::site(Route::get(Route::name(Request::current()->route()))->uri(array('action' => 'profile'))),
+				'form_action' => URL::site(Route::get(Route::name($this->request->route()))->uri(array('action' => 'profile'))),
 				'form_id' => 'editprofile',
 			)));
 	} // function action_profile
