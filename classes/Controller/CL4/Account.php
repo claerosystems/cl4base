@@ -75,10 +75,6 @@ class Controller_CL4_Account extends Controller_Base {
 				Message::message('account', 'profile_save_validation', array(
 					':validation_errors' => Message::add_validation_errors($model->validation(), 'user')
 				), Message::$error);
-
-			} catch (Exception $e) {
-				Kohana_Exception::caught_handler($e);
-				Message::add(__(Kohana::message('account', 'profile_save_error')), Message::$error);
 			}
 		} // if
 
@@ -141,27 +137,21 @@ class Controller_CL4_Account extends Controller_Base {
 
 			// check if there are any errors
 			if (empty($errors)) {
-				try {
-					$model = ORM::factory('User_Password', $user->pk())
-						->values(array(
-							'password' => $_POST['new_password'],
-							// user no longer needs to update their password
-							'force_update_password_flag' => FALSE,
-						))
-						->save();
+				$model = ORM::factory('User_Password', $user->pk())
+					->values(array(
+						'password' => $_POST['new_password'],
+						// user no longer needs to update their password
+						'force_update_password_flag' => FALSE,
+					))
+					->save();
 
-					Message::add(__(Kohana::message('account', 'password_changed')), Message::$notice);
+				Message::add(__(Kohana::message('account', 'password_changed')), Message::$notice);
 
-					// reload the user in the session
-					Auth::instance()->get_user()->reload();
+				// reload the user in the session
+				Auth::instance()->get_user()->reload();
 
-					// redirect and exit
-					Request::current()->redirect(Route::get(Route::name(Request::current()->route()))->uri(array('action' => 'profile')));
-
-				} catch (Exeception $e) {
-					Kohana_Exception::caught_handler($e);
-					Message::add(__(Kohana::message('account', 'password_change_error')), Message::$error);
-				}
+				// redirect and exit
+				$this->redirect(Route::get(Route::name($this->request->route()))->uri(array('action' => 'profile')));
 
 			} else {
 				Message::add(__(Kohana::message('account', 'password_change_validation')) . Message::add_validation_errors($validation, 'account'), Message::$error);
