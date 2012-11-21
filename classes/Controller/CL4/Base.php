@@ -426,14 +426,4 @@ class Controller_CL4_Base extends Controller_Template {
 
 		return $final;
 	} // function compile_style_script
-
-	/**
-	 * Throws a HTTP_Exception_500.
-	 * Useful when there is an exception within an action and a basic error handling is needed.
-	 *
-	 * @return void
-	 */
-	protected function error_500() {
-		throw HTTP_Exception(500, __('There was a problem building the page. Please try again later.'));
-	}
 }
