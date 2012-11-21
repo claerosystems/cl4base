@@ -1,6 +1,6 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
-class Controller_CL4_Login extends Controller_Base {
+class Controller_CL4_Login extends Controller_Private {
 	public $page = 'login';
 
 	public function before() {

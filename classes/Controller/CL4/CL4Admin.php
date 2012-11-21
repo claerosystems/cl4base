@@ -3,7 +3,7 @@
 /**
 * This controller handles the features of add, edit, delete, etc. of database records
 */
-class Controller_Cl4_Cl4Admin extends Controller_Base {
+class Controller_CL4_CL4Admin extends Controller_Private {
 	protected $db_group; // the default database config to use, needed for when a specific model is not loaded
 	protected $model_name; // the name of the model currently being manipulated
 	protected $model_display_name; // the fulll, friendly object name as specified in the options or the model itself
