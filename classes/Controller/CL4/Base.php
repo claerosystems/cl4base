@@ -86,15 +86,6 @@ class Controller_CL4_Base extends Controller_Template {
 			throw HTTP_Exception(503, __('The site is currently unavailable.'));
 		}
 
-		try {
-			// only log the request if they're logged in
-			if (Auth::instance()->logged_in()) {
-				Model_Request_Log::store_request();
-			}
-		} catch (Exception $e) {
-			Kohana_Exception::caught_handler($e, FALSE, FALSE);
-		}
-
 		parent::before();
 
 		$this->check_login();
