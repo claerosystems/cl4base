@@ -167,9 +167,6 @@ class Controller_CL4_Login extends Controller_Private {
 			if (Auth::instance()->logout()) {
 				Message::add(__(Kohana::message('user', 'username.logged_out')), Message::$notice);
 			} // if
-
-			// redirect to the user account and then the signin page if logout worked as expected
-			$this->redirect(Route::get(Route::name($this->request->route()))->uri() . $this->get_redirect_query());
 		} catch (Exception $e) {
 			Kohana_Exception::handler_continue($e);
 			Message::add(__(Kohana::message('user', 'username.not_logged_out')), Message::$error);
@@ -178,6 +175,9 @@ class Controller_CL4_Login extends Controller_Private {
 			$auth_config = Kohana::$config->load('auth');
 			$this->redirect(Route::get($auth_config['default_login_redirect'])->uri($auth_config['default_login_redirect_params']));
 		} // try
+
+		// redirect to the user account and then the signin page if logout worked as expected
+		$this->redirect(Route::get(Route::name($this->request->route()))->uri() . $this->get_redirect_query());
 	} // function action_logout
 
 	/**
