@@ -12,6 +12,6 @@ echo Form::select('table_name', $table_list, $table_name, array('id' => 'table_n
 echo Form::input('create', 'Create', array('type' => 'button', 'id' => 'create_model'));
 echo Form::textarea('', '', array(
 	'id' => 'model_code_container',
-	'class' => 'model_code_container',
+	'class' => 'cl4_model_code_container',
 ));
 ?>
