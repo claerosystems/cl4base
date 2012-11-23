@@ -529,4 +529,4 @@ class CL4_Auth extends Kohana_Auth_ORM {
 
 		return $salt;
 	} // function find_salt
-} // class cl4_Auth
+}

@@ -2,7 +2,7 @@
 /**
  * Default permission
  */
-class Model_cl4_Permission extends ORM {
+class Model_CL4_Permission extends ORM {
 	protected $_table_names_plural = FALSE;
 	protected $_table_name = 'permission';
 	public $_table_name_display = 'Permission';
