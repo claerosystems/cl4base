@@ -687,7 +687,7 @@ class Controller_CL4_CL4Admin extends Controller_Private {
 		$db_list = array_keys((array) Kohana::$config->load('database'));
 		$db_list = array_combine($db_list, $db_list);
 
-		$this->add_script('model_create', 'cl4/js/model_create/js');
+		$this->add_script('model_create', 'cl4/js/model_create.js');
 	} // function action_model_create
 
 	/**
