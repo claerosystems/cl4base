@@ -11,7 +11,7 @@
 						<li class="cl4admin"><?php echo HTML::anchor(Route::get('cl4admin')->uri(), __('DB Admin')); ?></li>
 						<?php } ?>
 						<?php if (CL4::is_dev() && Auth::instance()->allowed('cl4admin/model_create')) { ?>
-						<li class="modelcreate"><?php echo HTML::anchor(Route::get('cl4admin')->uri(array('model' => 'a', 'action' => 'model_create')), __('Model Create')); ?></li>
+						<li class="model_create"><?php echo HTML::anchor(Route::get('model_create')->uri(), __('Model Create')); ?></li>
 						<?php } ?>
 					</ul>
 				</li>

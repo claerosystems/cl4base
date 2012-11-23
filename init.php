@@ -38,3 +38,14 @@ if ($routes['cl4admin']) {
 		'column_name' => NULL,
 	));
 }
+
+if ($routes['model_create']) {
+	// model create
+	Route::set('model_create', 'model_create(/<model>/<action>)', array(
+		'model' => '[a-zA-Z0-9_]{0,}',
+	))->defaults(array(
+		'controller' => 'Model_Create',
+		'action' => 'index',
+		'model' => NULL,
+	));
+}

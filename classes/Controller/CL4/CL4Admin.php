@@ -138,7 +138,7 @@ class Controller_CL4_CL4Admin extends Controller_Private {
 		if ($this->auto_render) {
 			$this->add_style('dbadmin', 'css/dbadmin.css');
 		}
-	} // function add_admin_css
+	} // function add_css
 
 	/**
 	* Stores the current values for page, search and sorting in the session
@@ -662,52 +662,5 @@ class Controller_CL4_CL4Admin extends Controller_Private {
 	*/
 	function redirect_to_index() {
 		$this->redirect('/' . Route::get(Route::name($this->request->route()))->uri(array('model' => $this->model_name, 'action' => 'index')));
-	} // function
-
-	/*****************************
-	* The following functions are for actions that should only be performed by a programmer
-	******************************/
-
-	/**
-	* *** For programmer use ***
-	* Generates the page with a table list, some JS and a textarea for the generated PHP for a model
-	*/
-	public function action_model_create() {
-		$db_group = CL4::get_param('db_group', Database::$default);
-
-		$this->template->body_html = View::factory('cl4/cl4admin/model_create')
-			->set('table_name', CL4::get_param('table_name'))
-			->set('db_group', $db_group)
-			->bind('db_list', $db_list)
-			->bind('table_list', $table_list);
-
-		$table_list = Database::instance($db_group)->list_tables();
-		$table_list = array_combine($table_list, $table_list);
-
-		$db_list = array_keys((array) Kohana::$config->load('database'));
-		$db_list = array_combine($db_list, $db_list);
-
-		$this->add_script('model_create', 'cl4/js/model_create.js');
-	} // function action_model_create
-
-	/**
-	* *** For programmer use ***
-	* Runs ModelCreate::create_model(); adds what is returned to the the request->response and turns off auto render so we don't get the extra HTML from the template
-	*/
-	public function action_create() {
-		// try {
-			// we don't want the template controller automatically adding all the html
-			$this->auto_render = FALSE;
-
-			$db_group = CL4::get_param('db_group', Database::$default);
-
-			// generate a sample model file for the given table based on the database definition
-			$this->response->body(Model_Create::create_model($this->model_name, array(
-					'db_group' => $db_group,
-				)));
-		/*} catch (Exception $e) {
-			Kohana_Exception::caught_handler($e);
-			echo Kohana::message('cl4admin', 'error_creating');
-		}*/
 	} // function
 } // class
