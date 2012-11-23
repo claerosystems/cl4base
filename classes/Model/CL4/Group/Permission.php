@@ -85,4 +85,16 @@ class Model_CL4_Group_Permission extends ORM {
 			'permission_id' => 'Permission',
 		);
 	}
+
+	/**
+	* Rule definitions for validation.
+	*
+	* @return  array
+	*/
+	public function rules() {
+		return array(
+			'group_id' => array(array('selected')),
+			'permission_id' => array(array('selected')),
+		);
+	}
 } // class
