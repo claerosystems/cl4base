@@ -217,7 +217,6 @@ class Controller_CL4_CL4Admin extends Controller_Private {
 			'sort_by_order' => $this->sort_order,
 			'page_offset' => $this->page_offset,
 			'in_search' => ( ! empty($this->search) || ! empty($this->sort_column)),
-			'url_model_name' => $this->model_name,
 			'editable_list_options' => array(
 				'per_row_links' => array(
 					'view' => TRUE,     // view button
