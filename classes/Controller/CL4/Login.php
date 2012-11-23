@@ -307,7 +307,7 @@ class Controller_CL4_Login extends Controller_Private {
 
 				$mail = new Mail();
 				$mail->IsHTML();
-				$mail->add_user($user->id);
+				$mail->AddUser($user->id);
 				$mail->Subject = LONG_NAME . ' Password Reset';
 
 				// build a link with action reset including their username and the reset token
@@ -378,7 +378,7 @@ class Controller_CL4_Login extends Controller_Private {
 
 				$mail = new Mail();
 				$mail->IsHTML();
-				$mail->add_user($user->id);
+				$mail->AddUser($user->id);
 				$mail->Subject = LONG_NAME . ' New Password';
 
 				// provide a link to the user including their username
