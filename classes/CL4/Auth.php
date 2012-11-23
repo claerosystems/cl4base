@@ -66,7 +66,7 @@ class CL4_Auth extends Kohana_Auth_ORM {
 		$this->_session->delete($this->_config['timestamp_key']);
 
 		if ($this->get_user()) {
-			$this->get_user()->add_auth_log(Kohana::$config->load('cl4login.auth_type.logged_out'));
+			$this->get_user()->add_auth_log(Model_Auth_Log::LOG_TYPE_LOGGED_OUT);
 		}
 
 		return parent::logout($destroy, $logout_all);
@@ -270,7 +270,7 @@ class CL4_Auth extends Kohana_Auth_ORM {
 		if (empty($password)) {
 			$user = ORM::factory('User');
 
-			$user->add_auth_log(Kohana::$config->load('cl4login.auth_type.invalid_password'), $username);
+			$user->add_auth_log(Model_Auth_Log::LOG_TYPE_INVALID_PASSWORD, $username);
 
 			$labels = $user->labels();
 			return array(
@@ -306,7 +306,6 @@ class CL4_Auth extends Kohana_Auth_ORM {
 	protected function _login($user, $password, $remember, $verified_human = FALSE) {
 		$messages = array();
 		$login_config = Kohana::$config->load('cl4login');
-		$auth_types = $login_config['auth_type'];
 
 		// user is not an object, so it must be the username
 		if ( ! is_object($user)) {
@@ -336,7 +335,7 @@ class CL4_Auth extends Kohana_Auth_ORM {
 
 			// add a message and set the auth type for logging
 			$messages[] = array('username.too_many_attempts', array(':field' => $user_labels['username']));
-			$auth_type = $auth_types['too_many_attempts'];
+			$auth_type = Model_Auth_Log::LOG_TYPE_TOO_MANY_ATTEMPTS;
 
 		// If the passwords match, perform a login
 		} else if ($user->loaded() && $user->password === $password) {
@@ -361,20 +360,20 @@ class CL4_Auth extends Kohana_Auth_ORM {
 			$this->complete_login($user);
 
 			// add the auth log entry
-			$user->add_auth_log($auth_types['logged_in'], $username);
+			$user->add_auth_log(Model_Auth_Log::LOG_TYPE_LOGGED_IN, $username);
 
 			return TRUE;
 
 		// user is loaded, means that the user exists
 		} else if ($user->loaded()) {
 			$user->increment_failed_login();
-			$auth_type = $auth_types['invalid_password'];
+			$auth_type = Model_Auth_Log::LOG_TYPE_INVALID_PASSWORD;
 			$messages[] = array('username.invalid', array());
 			Message::add('User found, but password incorrect', Message::$debug);
 
 		// no user loaded, so the username and password must be wrong
 		} else {
-			$auth_type = $auth_types['invalid_username_password'];
+			$auth_type = Model_Auth_Log::LOG_TYPE_INVALID_USERNAME_PASSWORD;
 			$messages[] = array('username.invalid', array());
 			Message::add('User not found', Message::$debug);
 		}

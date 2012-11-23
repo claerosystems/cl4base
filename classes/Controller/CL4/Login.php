@@ -70,7 +70,7 @@ class Controller_CL4_Login extends Controller_Private {
 						$user->increment_failed_login();
 					}
 
-					$user->add_auth_log(Kohana::$config->load('cl4login.auth_type.too_many_attempts'), $username);
+					$user->add_auth_log(Model_Auth_Log::LOG_TYPE_TOO_MANY_ATTEMPTS, $username);
 					Message::message('user', 'recaptcha_not_valid');
 
 				// Check Auth and log the user in if their username and password is valid

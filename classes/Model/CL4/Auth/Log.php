@@ -9,6 +9,16 @@ class Model_CL4_Auth_Log extends ORM {
 
 	protected $_belongs_to = array('user' => array('model' => 'user'));
 
+	// auth types for logging purposes
+	// used in auth_type_id in auth_log
+	const LOG_TYPE_LOGGED_IN = 1;
+	const LOG_TYPE_LOGGED_OUT = 2;
+	const LOG_TYPE_INVALID_PASSWORD = 3;
+	const LOG_TYPE_INVALID_USERNAME_PASSWORD = 4;
+	const LOG_TYPE_UNKNOWN_ERROR = 5;
+	const LOG_TYPE_TOO_MANY_ATTEMPTS = 6;
+	const LOG_TYPE_VERIFYING_HUMAN = 7;
+
 	protected $_sorting = array(
 		'access_time' => 'DESC',
 	);
@@ -69,8 +79,16 @@ class Model_CL4_Auth_Log extends ORM {
 			'is_nullable' => FALSE,
 			'field_options' => array(
 				'source' => array(
-					'source' => 'sql',
-					'data' => "SELECT id, name FROM `auth_type` ORDER BY display_order, name",
+					'source' => 'array',
+					'data' => array(
+						Model_Auth_Log::LOG_TYPE_LOGGED_IN => 'Logged In',
+						Model_Auth_Log::LOG_TYPE_LOGGED_OUT => 'Logged Out',
+						Model_Auth_Log::LOG_TYPE_INVALID_PASSWORD => 'Invalid Password',
+						Model_Auth_Log::LOG_TYPE_INVALID_USERNAME_PASSWORD => 'Invalid Username & Password',
+						Model_Auth_Log::LOG_TYPE_UNKNOWN_ERROR => 'Unknown Error',
+						Model_Auth_Log::LOG_TYPE_TOO_MANY_ATTEMPTS => 'Too Many Attempts',
+						Model_Auth_Log::LOG_TYPE_VERIFYING_HUMAN => 'Verifying Human',
+					),
 				),
 			),
 		),
