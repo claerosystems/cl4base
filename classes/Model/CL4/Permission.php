@@ -8,7 +8,11 @@ class Model_CL4_Permission extends ORM {
 	public $_table_name_display = 'Permission';
 
 	// Relationships
-	protected $_has_many = array('group' => array('through' => 'group_permission'));
+	protected $_has_many = array(
+		'group' => array(
+			'through' => 'group_permission',
+		),
+	);
 
 	protected $_sorting = array(
 		'name' => 'ASC',

@@ -8,8 +8,14 @@ class Model_CL4_Group_Permission extends ORM {
 
 	// relationships
 	protected $_belongs_to = array(
-		'permission' => array(),
-		'group' => array(),
+		'group' => array(
+			'model' => 'Group',
+			'foreign_key' => 'id',
+		),
+		'permission' => array(
+			'model' => 'Permission',
+			'foreign_key' => 'id',
+		),
 	);
 
 	// column definitions
