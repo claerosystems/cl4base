@@ -57,23 +57,15 @@ class Controller_CL4_Model_Create extends Controller_Private {
 	 * Runs ModelCreate::create_model(); adds what is returned to the the request->response and turns off auto render so we don't get the extra HTML from the template
 	 */
 	public function action_create() {
-		try {
-			$db_group = CL4::get_param('db_group', Database::$default);
+		$db_group = CL4::get_param('db_group', Database::$default);
 
-			// generate a base model file for the given table based on the database definition
-			$model_create = new Model_Create($this->request->param('model'), array(
-				'db_group' => $db_group,
-			));
+		// generate a base model file for the given table based on the database definition
+		$model_create = new Model_Create($this->request->param('model'), array(
+			'db_group' => $db_group,
+		));
 
-			/*$model_code = Model_Create::create_model($this->request->param('model'), array(
-				'db_group' => $db_group,
-			));*/
-
-			AJAX_Status::echo_json(AJAX_Status::ajax(array(
-				'model_code' => $model_create->create_model(),
-			)));
-		} catch (Exception $e) {
-			Kohana_Exception::handler($e);
-		}
+		AJAX_Status::echo_json(AJAX_Status::ajax(array(
+			'model_code' => $model_create->create_model(),
+		)));
 	} // function action_create
 } // class
