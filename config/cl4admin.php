@@ -22,7 +22,6 @@ return array(
 		// model name => display name
 		'User_Admin' => 'User',
 		'Auth_Log' => 'Auth Log',
-		'Auth_Type' => 'Auth Type',
 		'Group' => 'Group',
 		'Group_Permission' => 'Group - Permission',
 		'Permission' => 'Permission',
