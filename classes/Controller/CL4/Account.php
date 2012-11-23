@@ -1,14 +1,8 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
-class Controller_CL4_Account extends Controller_Base {
+class Controller_CL4_Account extends Controller_Private {
 	public $page = 'account';
 
-	/**
-	* Must be logged in to access any of this controller
-	* @var  boolean
-	* @see  Controller_Base
-	*/
-	public $auth_required = TRUE;
 	/**
 	* The profile and password actions require the account/profile permission
 	* @var  array
@@ -18,12 +12,6 @@ class Controller_CL4_Account extends Controller_Base {
 		'profile' => 'account/profile',
 		'password' => 'account/profile',
 	);
-
-	public function before() {
-		parent::before();
-
-		$this->add_admin_css();
-	} // function before
 
 	/**
 	* By default go the profile
