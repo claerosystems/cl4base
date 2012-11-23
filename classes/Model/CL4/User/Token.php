@@ -4,7 +4,7 @@
  * This model was created using cl4_ORM and should provide
  * standard Kohana ORM features in additon to cl4-specific features.
  */
-class Model_cl4_User_Token extends ORM {
+class Model_CL4_User_Token extends ORM {
 	protected $_table_names_plural = FALSE;
 	protected $_table_name = 'user_token';
 	protected $_primary_val = 'user_id'; // default: name (column used as primary value)
@@ -91,4 +91,4 @@ class Model_cl4_User_Token extends ORM {
 			'token' => 'Token',
 		);
 	}
-} // class Model_cl4_User_Token
+}

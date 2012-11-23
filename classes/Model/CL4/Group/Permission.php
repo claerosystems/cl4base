@@ -1,6 +1,6 @@
 <?php defined('SYSPATH') or die('No direct access allowed.');
 
-class Model_cl4_Group_Permission extends ORM {
+class Model_CL4_Group_Permission extends ORM {
 	protected $_table_names_plural = FALSE;
 	protected $_table_name = 'group_permission';
 	public $_table_name_display = 'Group - Permission';

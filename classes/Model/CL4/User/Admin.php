@@ -3,7 +3,7 @@
 /**
  * extends Model_User, mostly adds the password and confirm_password functionality
  */
-class Model_cl4_User_Admin extends Model_User {
+class Model_CL4_User_Admin extends Model_User {
 	protected function _initialize() {
 		$this->_table_columns['password']['field_type'] = 'Password';
 		$this->_table_columns['password']['list_flag'] = FALSE;

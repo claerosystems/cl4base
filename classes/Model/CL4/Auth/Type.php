@@ -2,7 +2,7 @@
 /**
  * Default permission
  */
-class Model_cl4_Auth_Type extends ORM {
+class Model_CL4_Auth_Type extends ORM {
 	protected $_table_names_plural = FALSE;
 	protected $_table_name = 'auth_type';
 	public $_table_name_display = 'Auth Type';
@@ -80,4 +80,4 @@ class Model_cl4_Auth_Type extends ORM {
 			'display_order' => 'Display Order',
 		);
 	}
-} // class Model_cl4_Auth_Type
+}

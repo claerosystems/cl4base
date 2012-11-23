@@ -4,7 +4,7 @@
  * This model was created using cl4_ORM and should provide
  * standard Kohana ORM features in additon to cl4-specific features.
  */
-class Model_cl4_Session extends ORM {
+class Model_CL4_Session extends ORM {
 	protected $_table_names_plural = FALSE;
 	protected $_table_name = 'session';
 	protected $_primary_key = 'session_id'; // default: id

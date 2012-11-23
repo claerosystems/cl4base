@@ -2,7 +2,7 @@
 /**
  * Default permission
  */
-class Model_cl4_User_Group extends ORM {
+class Model_CL4_User_Group extends ORM {
 	protected $_table_names_plural = FALSE;
 	protected $_table_name = 'user_group';
 	public $_table_name_display = 'User - Group';
