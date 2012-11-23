@@ -99,7 +99,7 @@ class Controller_CL4_CL4Admin extends Controller_Private {
 		} // if
 
 		// redirect the user to a different model as they one they selected isn't valid (not in array of models)
-		if ( ! isset($model_list[$this->model_name]) && ((CL4::is_dev() && $action != 'create' && $action != 'model_create') || ! CL4::is_dev())) {
+		if ( ! isset($model_list[$this->model_name]) && ! CL4::is_dev()) {
 			Message::message('cl4admin', 'model_not_defined', array(':model_name' => $this->model_name), Message::$debug);
 			$this->redirect('dbadmin/' . $default_model . '/index');
 		}
@@ -605,12 +605,8 @@ class Controller_CL4_CL4Admin extends Controller_Private {
 
 		$auth = Auth::instance();
 
-		if ($action != 'model_create') {
-			// check if the user has access to all the models or access to this specific model
-			return ($auth->logged_in('cl4admin/*/' . $action) || $auth->logged_in('cl4admin/' . $model_name . '/' . $action) || $auth->logged_in('cl4admin/' . $model_name . '/*'));
-		} else {
-			return $auth->logged_in('cl4admin/model_create');
-		}
+		// check if the user has access to all the models or access to this specific model
+		return ($auth->logged_in('cl4admin/*/' . $action) || $auth->logged_in('cl4admin/' . $model_name . '/' . $action) || $auth->logged_in('cl4admin/' . $model_name . '/*'));
 	} // function
 
 	/**
