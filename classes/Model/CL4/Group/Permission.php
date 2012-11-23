@@ -35,8 +35,8 @@ class Model_CL4_Group_Permission extends ORM {
 			'is_nullable' => FALSE,
 			'field_options' => array(
 				'source' => array(
-					'source' => 'sql',
-					'data' => "SELECT id, name FROM `group` ORDER BY name",
+					'source' => 'model',
+					'data' => 'Group',
 				),
 			),
 		),
