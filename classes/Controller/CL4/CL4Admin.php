@@ -702,7 +702,7 @@ class Controller_CL4_CL4Admin extends Controller_Private {
 			$db_group = CL4::get_param('db_group', Database::$default);
 
 			// generate a sample model file for the given table based on the database definition
-			$this->response->body(ModelCreate::create_model($this->model_name, array(
+			$this->response->body(Model_Create::create_model($this->model_name, array(
 					'db_group' => $db_group,
 				)));
 		/*} catch (Exception $e) {
