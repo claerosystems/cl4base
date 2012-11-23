@@ -5,5 +5,6 @@ return array(
 		'login' => TRUE,
 		'account' => TRUE,
 		'cl4admin' => TRUE,
+		'model_create' => TRUE,
 	),
 );
