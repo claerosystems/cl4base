@@ -392,8 +392,13 @@ class Controller_CL4_CL4Admin extends Controller_Private {
 		// Create a new MuliORM for this model
 		$orm_multiple = MultiORM::factory($this->model_name, array('mode' => 'add'));
 
+		$received_post = FALSE;
+		if ( ! empty($_POST) && ! isset($_POST['ids'])) {
+			$received_post = TRUE;
+		}
+
 		// If form was submitted
-		if ( ! empty($_POST)) {
+		if ($received_post) {
 			try {
 				$orm_multiple->save_values()->save();
 				Message::message('cl4admin', 'multiple_saved', array(':records_saved' => $orm_multiple->records_saved()), Message::$notice);
