@@ -74,9 +74,11 @@ class Controller_CL4_CL4Admin extends Controller_Private {
 
 			// if there is no new model to go to, redirect them to the no access page
 			if (empty($go_to_model)) {
+				$this->set_session();
 				$this->redirect('login/noaccess' . URL::array_to_query(array('referrer' => $this->request->uri()), '&'));
 			}
 
+			$this->set_session();
 			$this->redirect('dbadmin/' . $go_to_model . '/index');
 		} // if
 
@@ -92,8 +94,10 @@ class Controller_CL4_CL4Admin extends Controller_Private {
 				$this->redirect_to_index();
 			} else if ($this->model_name != $default_model && ! empty($default_model)) {
 				Message::message('cl4admin', 'no_permission_item', NULL, Message::$error);
+				$this->set_session();
 				$this->redirect('dbadmin/' . $default_model . '/index');
 			} else {
+				$this->set_session();
 				$this->redirect('login/noaccess' . URL::array_to_query(array('referrer' => $this->request->uri()), '&'));
 			}
 		} // if
@@ -101,6 +105,7 @@ class Controller_CL4_CL4Admin extends Controller_Private {
 		// redirect the user to a different model as they one they selected isn't valid (not in array of models)
 		if ( ! isset($model_list[$this->model_name]) && ! CL4::is_dev()) {
 			Message::message('cl4admin', 'model_not_defined', array(':model_name' => $this->model_name), Message::$debug);
+			$this->set_session();
 			$this->redirect('dbadmin/' . $default_model . '/index');
 		}
 
@@ -144,15 +149,25 @@ class Controller_CL4_CL4Admin extends Controller_Private {
 	* Stores the current values for page, search and sorting in the session
 	*/
 	public function after() {
+		$this->set_session();
+
+		parent::after();
+	} // function after
+
+	/**
+	 * Sets the values from the controller property in the session.
+	 * Otherwise we'll loose the values.
+	 *
+	 * @return void
+	 */
+	protected function set_session() {
 		$this->model_session['page'] = $this->page_offset;
 		$this->model_session['sort_by_column'] = $this->sort_column;
 		$this->model_session['sort_by_order'] = $this->sort_order;
 		$this->model_session['search'] = $this->search;
 
 		Session::instance()->set_path($this->session_key . '.' . $this->model_name, $this->model_session);
-
-		parent::after();
-	} // function after
+	}
 
 	/**
 	* Load the model
@@ -188,6 +203,7 @@ class Controller_CL4_CL4Admin extends Controller_Private {
 			}
 
 			// redirect back to the page and display the error
+			$this->set_session();
 			$this->redirect(Route::get('cl4admin')->uri(array('model' => key($model_list))));
 
 		} // try
@@ -656,6 +672,7 @@ class Controller_CL4_CL4Admin extends Controller_Private {
 	* Redirects the user to the index for the current model based on the current route
 	*/
 	function redirect_to_index() {
+		$this->set_session();
 		$this->redirect('/' . Route::get(Route::name($this->request->route()))->uri(array('model' => $this->model_name, 'action' => 'index')));
 	} // function
 } // class
