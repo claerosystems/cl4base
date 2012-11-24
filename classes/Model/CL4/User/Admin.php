@@ -16,8 +16,8 @@ class Model_CL4_User_Admin extends Model_User {
 		$this->_display_order[45] = 'password_confirm';
 
 		// display the group field
-		$this->_has_many['Group']['edit_flag'] = TRUE;
-		$this->_has_many['Group']['view_flag'] = TRUE;
+		$this->_has_many['group']['edit_flag'] = TRUE;
+		$this->_has_many['group']['view_flag'] = TRUE;
 
 		parent::_initialize();
 	} // function _initialize

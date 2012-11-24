@@ -87,11 +87,23 @@ class Controller_CL4_Login extends Controller_Private {
 					} // if
 
 					if ( ! empty($redirect) && is_string($redirect)) {
-						// Redirect after a successful login, but check permissions first
-						$redirect_request = Request::factory($redirect);
-						$next_controller = 'Controller_' . $redirect_request->controller();
-						$next_controller = new $next_controller($redirect_request, Response::factory());
-						if (Auth::instance()->allowed($next_controller, $redirect_request->action())) {
+						// loop through the routes till we find one that matches
+						// it will return the array of params based on the URL
+						$fake_request = Request::factory($redirect);
+						foreach (Route::all() as $_route) {
+							$found_params = $_route->matches($fake_request);
+							if ($found_params !== FALSE) {
+								break;
+							}
+						}
+						if ( ! empty($found_params['controller']) && ! empty($found_params['action'])) {
+							$next_controller_name = 'Controller_' . $found_params['controller'];
+							if (class_exists($next_controller_name)) {
+								$next_controller = new $next_controller_name($fake_request, Response::factory());
+							}
+						}
+
+						if (isset($next_controller) && Auth::instance()->allowed($next_controller, $found_params['action'])) {
 							// they have permission to access the page, so redirect them there
 							$this->login_success_redirect($redirect);
 						} else {

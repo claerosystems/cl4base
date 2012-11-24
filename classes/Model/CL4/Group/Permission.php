@@ -8,8 +8,14 @@ class Model_CL4_Group_Permission extends ORM {
 
 	// relationships
 	protected $_belongs_to = array(
-		'permission' => array(),
-		'group' => array(),
+		'group' => array(
+			'model' => 'Group',
+			'foreign_key' => 'id',
+		),
+		'permission' => array(
+			'model' => 'Permission',
+			'foreign_key' => 'id',
+		),
 	);
 
 	// column definitions
@@ -35,8 +41,8 @@ class Model_CL4_Group_Permission extends ORM {
 			'is_nullable' => FALSE,
 			'field_options' => array(
 				'source' => array(
-					'source' => 'sql',
-					'data' => "SELECT id, name FROM `group` ORDER BY name",
+					'source' => 'model',
+					'data' => 'Group',
 				),
 			),
 		),
@@ -77,6 +83,18 @@ class Model_CL4_Group_Permission extends ORM {
 			'id' => 'ID',
 			'group_id' => 'Group',
 			'permission_id' => 'Permission',
+		);
+	}
+
+	/**
+	* Rule definitions for validation.
+	*
+	* @return  array
+	*/
+	public function rules() {
+		return array(
+			'group_id' => array(array('selected')),
+			'permission_id' => array(array('selected')),
 		);
 	}
 } // class

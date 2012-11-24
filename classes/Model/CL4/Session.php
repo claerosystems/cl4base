@@ -36,7 +36,7 @@ class Model_CL4_Session extends ORM {
 			),
 		),
 		'contents' => array(
-			'field_type' => 'textarea',
+			'field_type' => 'TextArea',
 			'is_nullable' => FALSE,
 		),
 	);

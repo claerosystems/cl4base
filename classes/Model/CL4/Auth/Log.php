@@ -7,7 +7,16 @@ class Model_CL4_Auth_Log extends ORM {
 	protected $_primary_val = 'username'; // default: name (column used as primary value)
 	protected $_log = FALSE; // don't log changes because it's pointless to log changes to a log table
 
-	protected $_belongs_to = array('user' => array('model' => 'user'));
+	protected $_belongs_to = array(
+		'user' => array(
+			'model' => 'User',
+			'foreign_key' => 'id',
+		),
+	);
+
+	protected $_sorting = array(
+		'access_time' => 'DESC',
+	);
 
 	// auth types for logging purposes
 	// used in auth_type_id in auth_log
@@ -18,10 +27,6 @@ class Model_CL4_Auth_Log extends ORM {
 	const LOG_TYPE_UNKNOWN_ERROR = 5;
 	const LOG_TYPE_TOO_MANY_ATTEMPTS = 6;
 	const LOG_TYPE_VERIFYING_HUMAN = 7;
-
-	protected $_sorting = array(
-		'access_time' => 'DESC',
-	);
 
 	// column definitions
 	protected $_table_columns = array(

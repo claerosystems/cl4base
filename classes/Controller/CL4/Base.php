@@ -126,7 +126,7 @@ class Controller_CL4_Base extends Controller_Template {
 
 			if (CL4::is_dev()) {
 				// this is so a session isn't started needlessly when in debug mode
-				$this->template->session = Session::instance();
+				$this->template->session = Session::instance()->as_array();
 			}
 		} // if
 
