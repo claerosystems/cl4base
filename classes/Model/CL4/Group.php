@@ -52,7 +52,7 @@ class Model_CL4_Group extends ORM {
 			),
 		),
 		'description' => array(
-			'field_type' => 'textarea',
+			'field_type' => 'TextArea',
 			'list_flag' => TRUE,
 			'edit_flag' => TRUE,
 			'search_flag' => TRUE,
