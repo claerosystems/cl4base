@@ -496,7 +496,7 @@ class Controller_CL4_CL4Admin extends Controller_Private {
 
 		// check to see if the record has a filename
 		if ( ! empty($filename)) {
-			$this->target_object->send_file($column_name);
+			$this->target_object->send_file($this->response, $column_name);
 
 		} else if (empty($filename)) {
 			echo Kohana::message('cl4admin', 'no_file');
@@ -543,12 +543,12 @@ class Controller_CL4_CL4Admin extends Controller_Private {
 			$output = PHPExcel_IOFactory::createWriter($export_result, 'Excel2007');
 			$output->save($temp_xls_file);
 
-			$this->request->response()->send_file($temp_xls_file, $output_name . '.xlsx', array('delete' => TRUE));
+			$this->response->send_file($temp_xls_file, $output_name . '.xlsx', array('delete' => TRUE));
 
 		// is a CSV
 		} else {
 			$export_result->close_csv()
-				->get_csv($output_name . '.csv');
+				->get_csv($this->response, $output_name . '.csv');
 		}
 	} // function action_export
 
