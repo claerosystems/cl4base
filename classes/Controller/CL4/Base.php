@@ -151,6 +151,7 @@ class Controller_CL4_Base extends Controller_Template {
 
 			// set some empty variables
 			$this->template->page_title = '';
+			$this->template->meta_tags = array();
 			$this->template->body_class = '';
 			$this->template->pre_message = '';
 			$this->template->body_html = '';
