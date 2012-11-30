@@ -72,7 +72,10 @@ class Controller_CL4_Base extends Controller_Template {
 	/**
 	 * Automatically executed before the controller action. Can be used to set
 	 * class properties, do authorization checks, and execute other custom code.
-	 * Logs
+	 * Disabled auto render if the action is in the no_auto_render_actions array.
+	 * Checks to see if the site is currently unavailable and then throws a 503.
+	 * Checks the login based on the auth_required and secure_actions properties.
+	 * Initializes the template.
 	 *
 	 * @return  void
 	 */
