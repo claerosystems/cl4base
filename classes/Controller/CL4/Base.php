@@ -273,8 +273,8 @@ class Controller_CL4_Base extends Controller_Template {
 	 * @return  Controller_Base
 	 */
 	public function add_template_js() {
-		$this->add_script('jquery', '//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js')
-			->add_script('jquery_ui', '//ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js');
+		$this->add_script('jquery', '//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js')
+			->add_script('jquery_ui', '//ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js');
 		if (DEBUG_FLAG) {
 			$this->add_script('xm_debug', 'xm/js/debug.js');
 		}
