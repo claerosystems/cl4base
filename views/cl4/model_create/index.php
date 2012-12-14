@@ -1,4 +1,4 @@
-<h2>Model Code Generation</h2>
+<h2 style="margin-top: 0;">Model Code Generation</h2>
 <p>You have to create at least one model for each database table before you can use it within ORM.
 The following tool can help generate a starting point from your database table.
 Just select a table and click "create" to see some sample model code in the textarea below.</p>
