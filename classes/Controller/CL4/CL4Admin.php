@@ -126,10 +126,7 @@ class Controller_CL4_CL4Admin extends Controller_Private {
 		if ($sort_order !== NULL) $this->model_session['sort_by_order'] = $sort_order;
 
 		// set the values in object from the values in the session
-		$this->page_offset = $this->model_session['page'];
-		$this->sort_column = $this->model_session['sort_by_column'];
-		$this->sort_order = $this->model_session['sort_by_order'];
-		$this->search = ( ! empty($this->model_session['search']) ? $this->model_session['search'] : NULL);
+		$this->set_controller_properties();
 
 		Session::instance()->set_path($this->session_key . '.last_model', $this->model_name);
 
@@ -155,8 +152,8 @@ class Controller_CL4_CL4Admin extends Controller_Private {
 	} // function after
 
 	/**
-	 * Sets the values from the controller property in the session.
-	 * Otherwise we'll loose the values.
+	 * Sets the values in the model_session to the values in the controller properties.
+	 * Otherwise we'll loose the values when we go to the next page.
 	 *
 	 * @return void
 	 */
@@ -167,6 +164,19 @@ class Controller_CL4_CL4Admin extends Controller_Private {
 		$this->model_session['search'] = $this->search;
 
 		Session::instance()->set_path($this->session_key . '.' . $this->model_name, $this->model_session);
+	}
+
+	/**
+	 * Set the properties on the controller to the values in the model session property.
+	 * Used in conjunction with set_session.
+	 *
+	 * @return void
+	 */
+	protected function set_controller_properties() {
+		$this->page_offset = $this->model_session['page'];
+		$this->sort_column = $this->model_session['sort_by_column'];
+		$this->sort_order = $this->model_session['sort_by_order'];
+		$this->search = ( ! empty($this->model_session['search']) ? $this->model_session['search'] : NULL);
 	}
 
 	/**
@@ -603,6 +613,7 @@ class Controller_CL4_CL4Admin extends Controller_Private {
 	public function action_cancel_search() {
 		// reset the search and search in the session
 		$this->model_session = Kohana::$config->load('cl4admin.default_list_options');
+		$this->set_controller_properties();
 
 		$this->redirect_to_index();
 	} // function action_cancel_search
