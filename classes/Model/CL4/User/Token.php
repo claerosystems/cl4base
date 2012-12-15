@@ -11,12 +11,10 @@ class Model_CL4_User_Token extends ORM {
 	public $_table_name_display = 'User Token'; // cl4-specific
 
 	// relationships
-	protected $_has_one = array(
+	protected $_belongs_to = array(
 		'user' => array(
-			'model' => 'user',
-			'through' => 'user',
-			'foreign_key' => 'id',
-			'far_key' => 'user_id',
+			'model' => 'User',
+			'foreign_key' => 'user_id',
 		),
 	);
 
