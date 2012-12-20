@@ -20,7 +20,7 @@ class Controller_CL4_Private extends Controller_Base {
 		parent::before();
 
 		if ($this->auto_render) {
-			$this->add_style('admin', 'css/admin.css');
+			$this->add_style('private', 'css/private.css');
 		}
 	} // function before
 }
