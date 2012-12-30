@@ -305,18 +305,18 @@ class Controller_CL4_Base extends Controller_Template {
 	 * Adds a CSS file.
 	 * If the name already exists, the file will not be added.
 	 *
-	 * @param  string  $name      The name of the CSS file.
-	 * @param  string  $path      The path to the CSS file.
-	 * @param  string  $media     The media type. NULL for all/none.
-	 * @param  array   $required  Array of CSS file names that are required before this one can be loaded.
+	 * @param  string  $name   The name of the CSS file.
+	 * @param  string  $path   The path to the CSS file.
+	 * @param  string  $media  The media type. NULL for all/none.
+	 * @param  array   $dependencies  Array of CSS file names that are dependencies before this one can be loaded.
 	 * @return  Controller_Base
 	 */
-	protected function add_style($name, $path, $media = NULL, $required = array()) {
+	protected function add_style($name, $path, $media = NULL, $dependencies = array()) {
 		if ( ! isset($this->styles[$name])) {
 			$this->styles[$name] = array(
 				'path' => $path,
 				'media' => $media,
-				'required' => $required,
+				'dependencies' => $dependencies,
 			);
 		}
 
@@ -327,16 +327,16 @@ class Controller_CL4_Base extends Controller_Template {
 	 * Adds a script file.
 	 * If the name already exists, the file will not be added.
 	 *
-	 * @param  string  $name      The name of the script file.
-	 * @param  string  $path      The path to the script file.
-	 * @param  array   $required  Array of script file names that are required before this one can be loaded.
+	 * @param  string  $name  The name of the script file.
+	 * @param  string  $path  The path to the script file.
+	 * @param  array   $dependencies  Array of script file names that are dependencies before this one can be loaded.
 	 * @return  Controller_Base
 	 */
-	protected function add_script($name, $path, $required = array()) {
+	protected function add_script($name, $path, $dependencies = array()) {
 		if ( ! isset($this->scripts[$name])) {
 			$this->scripts[$name] = array(
 				'path' => $path,
-				'required' => $required,
+				'dependencies' => $dependencies,
 			);
 		}
 
@@ -350,7 +350,7 @@ class Controller_CL4_Base extends Controller_Template {
 	 * @return  array
 	 */
 	protected function compile_styles() {
-		$styles = $this->compile_style_script($this->styles);
+		$styles = $this->compile_assets($this->styles);
 
 		// create the array for use in the template
 		$final_styles = array();
@@ -368,7 +368,7 @@ class Controller_CL4_Base extends Controller_Template {
 	 * @return  array
 	 */
 	protected function compile_scripts() {
-		$scripts = $this->compile_style_script($this->scripts);
+		$scripts = $this->compile_assets($this->scripts);
 
 		// create the array for use in the template
 		$final_scripts = array();
@@ -382,48 +382,40 @@ class Controller_CL4_Base extends Controller_Template {
 	/**
 	 * Loops through the array, ordering it based on the required values.
 	 * 'required' must be one of the keys in the value array.
+	 * Taken from [Kohana-Assets](https://github.com/coreyworrell/Kohana-Assets/blob/master/classes/assets/core.php#L346).
 	 *
-	 * @param  array  $array  The array to order.
+	 * @param  array  $assets  The assets to order.
 	 * @return  array
 	 */
-	protected function compile_style_script($array) {
-		$final = array();
+	protected function compile_assets($assets) {
+		$original = $assets;
+		$compiled = array();
 
-		foreach ($array as $_name => $_data) {
-			if (empty($_data['required'])) {
-				$final[$_name] = $_data;
-				continue;
-			}
+		while (count($assets) > 0) {
+			foreach ($assets as $name => $value) {
+				// No dependencies anymore, add it to compiled
+				if (empty($assets[$name]['dependencies'])) {
+					$compiled[$name] = $value;
+					unset($assets[$name]);
+				} else {
+					foreach ($assets[$name]['dependencies'] as $k => $v) {
+						// Remove dependency if doesn't exist, if its dependent on itself, or if the dependent is dependent on it
+						if ( ! isset($original[$v]) || $v === $name || (isset($assets[$v]) && in_array($name, $assets[$v]['dependencies']))) {
+							unset($assets[$name]['dependencies'][$k]);
+							continue;
+						}
 
-			// store all the scripts and empty the array
-			$_final = $final;
-			$final = array();
+						// This dependency hasn't been compiled yet
+						if ( ! isset($compiled[$v]))
+							continue;
 
-			$needed = count($_data['required']);
-			$found = 0;
+						// This dependency is taken care of, remove from list
+						unset($assets[$name]['dependencies'][$k]);
+					} // foreach
+				} // if
+			} // foreach
+		} // while
 
-			// loop through the list of scripts till we've found all the required ones
-			foreach ($_final as $__name => $__data) {
-				$final[$__name] = $__data;
-				unset($_final[$__name]);
-
-				if (in_array($__name, $_data['required'])) {
-					++ $found;
-					if ($found == $needed) {
-						break;
-					}
-				}
-			}
-
-			// add the style sheet
-			$final[$_name] = $_data;
-
-			// add the remainder of the scripts
-			foreach ($_final as $__name => $__data) {
-				$final[$__name] = $__data;
-			}
-		}
-
-		return $final;
-	} // function compile_style_script
+		return $compiled;
+	} // function compile_assets
 }
