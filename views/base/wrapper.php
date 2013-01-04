@@ -9,9 +9,4 @@
 	echo $body_html;
 	?>
 	</div>
-	<div class="clear"></div>
 </div>
-<div class="clear"></div>
-
-<?php echo View::factory('base/footer')
-	->set($kohana_view_data); ?>
