@@ -13,6 +13,9 @@ echo View::factory('base/header')
 // wrapper: the content portion of the body including messages
 echo View::factory('base/wrapper')
 	->set($kohana_view_data);
+// footer: footer and ajax error element
+echo View::factory('base/footer')
+	->set($kohana_view_data);
 // analytics: code for website stats, such as Google Analytics
 echo View::factory('base/analytics')
 	->set($kohana_view_data);
