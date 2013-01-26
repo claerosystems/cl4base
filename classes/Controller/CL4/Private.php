@@ -8,9 +8,9 @@ class Controller_CL4_Private extends Controller_Base {
 	 * Controls access for the whole controller.
 	 * If the entire controller REQUIRES that the user be logged in, set this to TRUE.
 	 * If some or all of the controller DOES NOT need to be logged in, set to this FALSE; to control which actions require authentication or a specific permission, us the $secure_actions array.
-	 * By default, all Admin Controllers are auth required = 5
+	 * By default, all Private Controllers are auth required.
 	 */
-	public $auth_required = FALSE;
+	public $auth_required = TRUE;
 
 	/**
 	 * Called before the action.

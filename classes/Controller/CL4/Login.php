@@ -3,6 +3,8 @@
 class Controller_CL4_Login extends Controller_Private {
 	public $page = 'login';
 
+	public $auth_required = FALSE;
+
 	/**
 	* Displays the login form and logs the user in or detects and invalid login (through Auth and Model_User)
 	*
