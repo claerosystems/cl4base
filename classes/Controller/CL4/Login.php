@@ -184,8 +184,7 @@ class Controller_CL4_Login extends Controller_Private {
 			Message::add(__(Kohana::message('user', 'username.not_logged_out')), Message::$error);
 
 			// redirect them to the default page
-			$auth_config = Kohana::$config->load('auth');
-			$this->redirect(Route::get($auth_config['default_login_redirect'])->uri($auth_config['default_login_redirect_params']));
+			$this->login_success_redirect();
 		} // try
 
 		// redirect to the user account and then the signin page if logout worked as expected
