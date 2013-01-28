@@ -277,8 +277,8 @@ class Controller_CL4_Base extends Controller_Template {
 	 * @return  Controller_Base
 	 */
 	public function add_template_js() {
-		$this->add_script('jquery', '//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js')
-			->add_script('jquery_ui', '//ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js')
+		$this->add_script('jquery', '//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js')
+			->add_script('jquery_ui', '//ajax.googleapis.com/ajax/libs/jqueryui/1.10.0/jquery-ui.min.js')
 			->add_script('cl4', 'cl4/js/cl4.js')
 			->add_script('cl4_ajax', 'cl4/js/ajax.js')
 			->add_script('base', 'js/base.js');
