@@ -27,6 +27,7 @@ class Model_CL4_Auth_Log extends ORM {
 	const LOG_TYPE_UNKNOWN_ERROR = 5;
 	const LOG_TYPE_TOO_MANY_ATTEMPTS = 6;
 	const LOG_TYPE_VERIFYING_HUMAN = 7;
+	const LOG_TYPE_INVALID_TOKEN = 8;
 
 	// column definitions
 	protected $_table_columns = array(
