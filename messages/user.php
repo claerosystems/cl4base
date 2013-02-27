@@ -27,4 +27,6 @@ return array(
 	'update_password' => 'Before continuing, please change your password.',
 	'recaptcha_not_valid' => 'The reCAPTCHA wasn\'t entered correctly. Please try again.',
 	'enter_recaptcha' => 'Please enter the reCAPTCHA before logging in.',
+	'invalid_token' => 'An invalid or expired security token was received.  Please try again.',
+	'login_validation_failed' => 'An error occurred while logging you in, please contact your administrator.'
 );
