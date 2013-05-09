@@ -35,7 +35,7 @@ class Controller_CL4_Account extends Controller_Private {
 	*/
 	public function action_profile() {
 		// set the template title (see Controller_Base for implementation)
-		$this->template->page_title = 'Profile Edit';
+		$this->template->page_title = 'Profile Edit - ' . $this->page_title_append;
 
 		// get the current user from auth
 		$user = Auth::instance()->get_user();
@@ -86,7 +86,7 @@ class Controller_CL4_Account extends Controller_Private {
 	* Saves the updated password and then calls action_profile() to generate form
 	*/
 	public function action_password() {
-		$this->template->page_title = 'Change Password';
+		$this->template->page_title = 'Change Password - ' . $this->page_title_append;
 
 		// get the current user from auth
 		$user = Auth::instance()->get_user();
