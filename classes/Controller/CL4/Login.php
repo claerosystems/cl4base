@@ -12,7 +12,7 @@ class Controller_CL4_Login extends Controller_Private {
 	*/
 	public function action_index() {
 		// set the template title (see Controller_App for implementation)
-		$this->template->page_title = 'Login';
+		$this->template->page_title = 'Login - ' . $this->page_title_append;
 
 		// get some variables from the request
 		// get the user name from a get parameter or a cookie (if set)
@@ -216,7 +216,7 @@ class Controller_CL4_Login extends Controller_Private {
 			$redirect = CL4::get_param('redirect');
 		}
 
-		$this->template->page_title = 'Timed Out';
+		$this->template->page_title = 'Timed Out - ' . $this->page_title_append;
 		$this->template->body_html = View::factory('cl4/cl4login/timed_out')
 			->set('redirect', $redirect)
 			->set('username', $user->username);
@@ -266,7 +266,7 @@ class Controller_CL4_Login extends Controller_Private {
 	*/
 	public function action_noaccess() {
 		// set the template title (see Controller_App for implementation)
-		$this->template->title = 'Access not allowed';
+		$this->template->page_title = 'Access Not Allowed - ' . $this->page_title_append;
 		$view = $this->template->body_html = View::factory('cl4/cl4login/no_access')
 			->set('referrer', CL4::get_param('referrer'));
 	} // function action_noaccess
@@ -297,7 +297,7 @@ class Controller_CL4_Login extends Controller_Private {
 		$default_options = Kohana::$config->load('cl4login');
 
 		// set the template page_title (see Controller_Base for implementation)
-		$this->template->page_title = 'Forgot Password';
+		$this->template->page_title = 'Forgot Password - ' . $this->page_title_append;
 
 		if (isset($_POST['reset_username'])) {
 			// If recaptcha is valid and is received
@@ -361,7 +361,7 @@ class Controller_CL4_Login extends Controller_Private {
 		$default_options = Kohana::$config->load('cl4login');
 
 		// set the template title (see Controller_Base for implementation)
-		$this->template->page_title = 'Password Reset';
+		$this->template->page_title = 'Password Reset - ' . $this->page_title_append;
 
 		$username = CL4::get_param('username');
 		if ($username !== null) $username = trim($username);

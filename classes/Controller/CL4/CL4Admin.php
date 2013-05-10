@@ -197,7 +197,7 @@ class Controller_CL4_CL4Admin extends Controller_Private {
 			if ($this->auto_render) $this->template->page_title = $this->target_object->_table_name_display . ' Administration' . $this->template->page_title;
 
 			// generate the friendly model name used to display to the user
-			$this->model_display_name = ( ! empty($this->target_object->_table_name_display) ? $this->target_object->_table_name_display : CL4::underscores_to_words($this->model_name));
+			$this->model_display_name = $this->get_model_display_name($this->target_object);
 
 			Message::message('cl4admin', 'model_loaded', array(':model_name' => $this->model_name), Message::$debug);
 
@@ -224,6 +224,9 @@ class Controller_CL4_CL4Admin extends Controller_Private {
 	* Just displays the editable list using display_editable_list()
 	*/
 	public function action_index() {
+		$this->model_display_name = $this->get_model_display_name(ORM::factory($this->model_name));
+		$this->set_page_title();
+
 		$this->display_editable_list();
 	}
 
@@ -341,6 +344,7 @@ class Controller_CL4_CL4Admin extends Controller_Private {
 
 		$view_content = $this->target_object->get_form($form_options);
 
+		$this->set_page_title('Add');
 		$this->add_admin_view($view_title, $view_content);
 	} // function action_add
 
@@ -354,6 +358,7 @@ class Controller_CL4_CL4Admin extends Controller_Private {
 			$this->save_model();
 		}
 
+		$this->set_page_title('Edit');
 		$view_title = $this->get_page_title_message('editing_item');
 		$view_content = $this->target_object->get_form(array(
 			'mode' => 'edit',
@@ -392,6 +397,7 @@ class Controller_CL4_CL4Admin extends Controller_Private {
 
 		$this->load_model('view');
 
+		$this->set_page_title('View');
 		$this->add_admin_view(HTML::chars($this->model_display_name), $this->target_object->get_view());
 	} // function
 
@@ -432,6 +438,7 @@ class Controller_CL4_CL4Admin extends Controller_Private {
 		$view_content = $orm_multiple->get_add_multiple($count);
 
 		// Add view to template
+		$this->set_page_title('Add');
 		$this->add_admin_view($view_title, $view_content);
 	} // function action_add_multiple
 
@@ -462,6 +469,7 @@ class Controller_CL4_CL4Admin extends Controller_Private {
 			$ids = $_POST['ids'];
 		} // if
 
+		$this->set_page_title('Add');
 		$view_title = $this->get_page_title_message('multiple_edit_item', $orm_multiple->_table_name_display);
 		$view_content = $orm_multiple->get_edit_multiple($ids);
 		$this->add_admin_view($view_title, $view_content);
@@ -499,6 +507,7 @@ class Controller_CL4_CL4Admin extends Controller_Private {
 				'object_name' => $this->model_display_name,
 			)));
 
+			$this->set_page_title('Delete');
 			$this->add_admin_view(HTML::chars($this->model_display_name), $this->target_object->get_view());
 		}
 	} // function action_delete
@@ -599,6 +608,7 @@ class Controller_CL4_CL4Admin extends Controller_Private {
 			$this->redirect_to_index();
 
 		} else {
+			$this->set_page_title('Search');
 			$view_title = $this->get_page_title_message('search');
 			$view_content = $this->target_object->get_form(array(
 				'mode' => 'search',
@@ -682,6 +692,29 @@ class Controller_CL4_CL4Admin extends Controller_Private {
 	*/
 	public function get_default_model() {
 		return Kohana::$config->load('cl4admin.default_model');
+	}
+
+	/**
+	 * Returns the display name of the model.
+	 * Will use the model's _table_name_display property if available.
+	 * If not available, will use the model name property converted to "human readable".
+	 *
+	 * @param  ORM  $model  The model to get the name from.
+	 * @return string
+	 */
+	protected function get_model_display_name($model) {
+		return ( ! empty($model->_table_name_display) ? $model->_table_name_display : CL4::underscores_to_words($this->model_name));
+	}
+
+	/**
+	 * Sets the page title on the template.
+	 * Standard format is: [action] - [model display name] - Administration - [site long name]
+	 *
+	 * @param  string  $action  The page title.
+	 * @return void
+	 */
+	protected function set_page_title($action = NULL) {
+		$this->template->page_title = ( ! empty($action) ? $action . ' - ' : '') . $this->model_display_name . ' - Administration - ' . $this->page_title_append;
 	}
 
 	/**

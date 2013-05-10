@@ -70,6 +70,14 @@ class Controller_CL4_Base extends Controller_Template {
 	protected $on_load_js = '';
 
 	/**
+	 * The default page title append (added after the rest of the page title).
+	 * Not added by default, but can be used to make changing it later easier.
+	 * Defaults to the LONG_NAME constant.
+	 * @var  string
+	 */
+	protected $page_title_append = LONG_NAME;
+
+	/**
 	 * Automatically executed before the controller action. Can be used to set
 	 * class properties, do authorization checks, and execute other custom code.
 	 * Disabled auto render if the action is in the no_auto_render_actions array.
