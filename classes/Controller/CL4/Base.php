@@ -311,16 +311,18 @@ class Controller_CL4_Base extends Controller_Template {
 
 	/**
 	 * Adds a CSS file.
-	 * If the name already exists, the file will not be added.
+	 * If $replace is FALSE, the CSS file will not be added again based on the name.
+	 * If $replace is TRUE, the CSS file will replace the existing CSS file.
 	 *
 	 * @param  string  $name   The name of the CSS file.
 	 * @param  string  $path   The path to the CSS file.
 	 * @param  string  $media  The media type. NULL for all/none.
 	 * @param  array   $dependencies  Array of CSS file names that are dependencies before this one can be loaded.
+	 * @param  boolean  $replace  Controls if the CSS file should replace an existing file.
 	 * @return  Controller_Base
 	 */
-	protected function add_style($name, $path, $media = NULL, $dependencies = array()) {
-		if ( ! isset($this->styles[$name])) {
+	protected function add_style($name, $path, $media = NULL, $dependencies = array(), $replace = FALSE) {
+		if ( ! isset($this->styles[$name]) || $replace) {
 			$this->styles[$name] = array(
 				'path' => $path,
 				'media' => $media,
@@ -333,15 +335,17 @@ class Controller_CL4_Base extends Controller_Template {
 
 	/**
 	 * Adds a script file.
-	 * If the name already exists, the file will not be added.
+	 * If $replace is FALSE, the script file will not be added again based on the name.
+	 * If $replace is TRUE, the script file will replace the existing script file.
 	 *
 	 * @param  string  $name  The name of the script file.
 	 * @param  string  $path  The path to the script file.
 	 * @param  array   $dependencies  Array of script file names that are dependencies before this one can be loaded.
+	 * @param  boolean  $replace  Controls if the script file should replace an existing file.
 	 * @return  Controller_Base
 	 */
-	protected function add_script($name, $path, $dependencies = array()) {
-		if ( ! isset($this->scripts[$name])) {
+	protected function add_script($name, $path, $dependencies = array(), $replace = FALSE) {
+		if ( ! isset($this->scripts[$name]) || $replace) {
 			$this->scripts[$name] = array(
 				'path' => $path,
 				'dependencies' => $dependencies,
