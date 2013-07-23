@@ -18,16 +18,16 @@ $table = new HTMLTable(array(
 ));
 
 $table->add_row(array(
-	'<label>Current Password</label>',
-	Form::password('current_password', '', array('class' => 'text', 'size' => 20, 'maxlength' => 42)),
+	'<label>Your Current Password</label>',
+	Form::password('current_password', '', array('class' => 'text', 'size' => 30, 'maxlength' => 255)),
 ));
 $table->add_row(array(
 	'<label>New Password</label>',
-	Form::password('new_password', '', array('class' => 'text', 'size' => 20, 'maxlength' => 42)),
+	Form::password('new_password', '', array('class' => 'text', 'size' => 30, 'maxlength' => 255)),
 ));
 $table->add_row(array(
 	'<label>Confirm New Password</label>',
-	Form::password('new_password_confirm', '', array('class' => 'text', 'size' => 20, 'maxlength' => 42)),
+	Form::password('new_password_confirm', '', array('class' => 'text', 'size' => 30, 'maxlength' => 255)),
 ));
 
 echo $table->get_html();
