@@ -20,7 +20,7 @@ $logout_uri = Route::get(Route::name(Request::current()->route()))->uri(array('a
 		<li>
 			<ul>
 				<li class="field_label"><label>Password</label></li>
-				<li class="field_value"><?php echo Form::password('password', '', array('size' => 20, 'maxlength' => 42, 'autofocus')) ?></li>
+				<li class="field_value"><?php echo Form::password('password', '', array('size' => 20, 'maxlength' => 255, 'autofocus')) ?></li>
 			</ul>
 		</li>
 	</ul>

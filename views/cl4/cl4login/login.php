@@ -16,7 +16,7 @@
 		<li>
 			<ul>
 				<li class="field_label"><label for="password">Password</label></li>
-				<li class="field_value"><?php echo Form::password('password', $password, array('size' => 20, 'maxlength' => 42, 'id' => 'password')); ?></li>
+				<li class="field_value"><?php echo Form::password('password', $password, array('size' => 20, 'maxlength' => 255, 'id' => 'password')); ?></li>
 			</ul>
 		</li>
 	</ul>
