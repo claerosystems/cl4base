@@ -400,15 +400,15 @@ class CL4_Auth extends Kohana_Auth_ORM {
 	}
 
 	/**
-	* Generates a random password without any characters that can be confused $length characters long
+	* Generates a random password without any characters that can be confused `$length` characters long.
 	*
-	* @param  int  $length  the length to generate
+	* @param  int  $length  The length to generate, defaults to 15.
 	*
 	* @return  string  The random password
 	*/
-	public static function generate_password($length = 7) {
+	public static function generate_password($length = 15) {
 		return Text::random('distinct', $length);
-	} // function
+	}
 
 	/**
 	* This function is run after the login completes
