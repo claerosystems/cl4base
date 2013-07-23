@@ -8,11 +8,9 @@ class Model_CL4_User_Admin extends Model_User {
 		$this->_table_columns['password']['field_type'] = 'Password';
 		$this->_table_columns['password']['list_flag'] = FALSE;
 		$this->_table_columns['password']['edit_flag'] = TRUE;
-		$this->_table_columns['password_confirm'] = array(
-			'field_type' => 'Password',
-			'edit_flag' => TRUE,
-		);
 
+		// add the password column, a copy of the password field
+		$this->_table_columns['password_confirm'] = $this->_table_columns['password'];
 		$this->_display_order[45] = 'password_confirm';
 
 		// display the group field
