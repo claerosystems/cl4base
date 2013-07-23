@@ -23,7 +23,7 @@ class Controller_CL4_Login extends Controller_Private {
 		$redirect = CL4::get_param('redirect');
 
 		// If user already signed-in
-		if (Auth::instance()->logged_in() === TRUE){
+		if (Auth::instance()->logged_in()) {
 			// redirect to the default login location or the redirect location
 			$this->login_success_redirect($redirect);
 		}
@@ -292,6 +292,11 @@ class Controller_CL4_Login extends Controller_Private {
 	* A basic implementation of the "Forgot password" functionality
 	*/
 	public function action_forgot() {
+		// If user already signed-in to redirect them to the default page
+		if (Auth::instance()->logged_in()) {
+			$this->login_success_redirect();
+		}
+
 		Kohana::load(Kohana::find_file('vendor/recaptcha', 'recaptchalib'));
 
 		$default_options = Kohana::$config->load('cl4login');
@@ -358,6 +363,11 @@ class Controller_CL4_Login extends Controller_Private {
 	* @todo consider changing this to not send the password, but instead allow them enter a new password right there; this might be more secure, but since we've sent them a link anyway, it's probably too late for security; the only thing is email is insecure (not HTTPS)
 	*/
 	function action_reset() {
+		// If user already signed-in to redirect them to the default page
+		if (Auth::instance()->logged_in()) {
+			$this->login_success_redirect();
+		}
+
 		$default_options = Kohana::$config->load('cl4login');
 
 		// set the template title (see Controller_Base for implementation)
