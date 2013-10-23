@@ -75,7 +75,7 @@ class Controller_CL4_Base extends Controller_Template {
 	 * Defaults to the LONG_NAME constant.
 	 * @var  string
 	 */
-	protected $page_title_append = LONG_NAME;
+	protected $page_title_append = ''; //LONG_NAME;
 
 	/**
 	 * Automatically executed before the controller action. Can be used to set
