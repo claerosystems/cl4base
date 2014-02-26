@@ -647,7 +647,7 @@ class Controller_CL4_CL4Admin extends Controller_Private {
 		$auth = Auth::instance();
 
 		// check if the user has access to all the models or access to this specific model
-		return ($auth->logged_in('cl4admin/*/' . $action) || $auth->logged_in('cl4admin/' . $model_name . '/' . $action) || $auth->logged_in('cl4admin/' . $model_name . '/*'));
+		return ($auth->logged_in('dbadmin/*/' . $action) || $auth->logged_in('dbadmin/' . $model_name . '/' . $action) || $auth->logged_in('dbadmin/' . $model_name . '/*'));
 	} // function
 
 	/**

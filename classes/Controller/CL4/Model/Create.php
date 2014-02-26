@@ -8,8 +8,8 @@ class Controller_CL4_Model_Create extends Controller_Private {
 	public $page = 'cl4admin';
 
 	public $secure_actions = array(
-		'index' => 'cl4admin/model_create',
-		'create' => 'cl4admin/model_create',
+		'index' => 'dbadmin/model_create',
+		'create' => 'dbadmin/model_create',
 	);
 
 	protected $no_auto_render_actions = array('create');
@@ -20,8 +20,6 @@ class Controller_CL4_Model_Create extends Controller_Private {
 	 */
 	public function before() {
 		parent::before();
-
-		$this->add_css();
 	} // function before
 
 	/**
