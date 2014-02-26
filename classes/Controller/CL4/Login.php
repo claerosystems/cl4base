@@ -1,6 +1,6 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
-class Controller_CL4_Login extends Controller_Private {
+class Controller_CL4_Login extends Controller_Base {
 	public $page = 'login';
 
 	public $auth_required = FALSE;
@@ -216,7 +216,7 @@ class Controller_CL4_Login extends Controller_Private {
 			$redirect = CL4::get_param('redirect');
 		}
 
-		$this->template->page_title = 'Timed Out - ' . $this->page_title_append;
+		$this->template->page_title = 'Timed Out';
 		$this->template->body_html = View::factory('cl4/cl4login/timed_out')
 			->set('redirect', $redirect)
 			->set('username', $user->username);
