@@ -10,7 +10,7 @@ class Model_CL4_Auth_Log extends ORM {
 	protected $_belongs_to = array(
 		'user' => array(
 			'model' => 'User',
-			'foreign_key' => 'id',
+			'foreign_key' => 'user_id',
 		),
 	);
 
