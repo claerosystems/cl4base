@@ -8,7 +8,7 @@
  */
 class CL4_Base {
 	/**
-	 * Attempte to convert the given phone number in to the standard cl4 format, which is x-xxx-xxx-xxxx-xx
+	 * Attempt to convert the given phone number in to the standard cl4 format, which is x-xxx-xxx-xxxx-xx
 	 * @param $phone_number
 	 *
 	 * @return string
