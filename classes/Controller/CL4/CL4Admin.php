@@ -664,7 +664,7 @@ class Controller_CL4_CL4Admin extends Controller_Private {
 
 		return View::factory('cl4/cl4admin/header', array(
 			'model_select' => $model_select,
-			'form_action' => URL::site($this->request->uri()) . URL::query(),
+			'form_action' => Base::get_url('cl4admin', array('model' => $this->model_name)), //URL::site($this->request->uri()) . URL::query(),
 		));
 	} // function
 
