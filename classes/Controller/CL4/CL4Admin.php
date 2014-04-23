@@ -87,6 +87,7 @@ class Controller_CL4_CL4Admin extends Controller_Private {
 		// get config and then check to see if the current action is defined in the array, otherwise use the action
 		$action_to_perm = Kohana::$config->load('cl4admin.action_to_permission');
 		$perm_action = Arr::get($action_to_perm, $action, $action);
+
 		if ( ! $this->check_perm($perm_action)) {
 			// we can't use the default functionality of secure_actions because we have 2 possible permissions per action: global and per model
 			if ($action != 'index') {
@@ -647,7 +648,7 @@ class Controller_CL4_CL4Admin extends Controller_Private {
 		$auth = Auth::instance();
 
 		// check if the user has access to all the models or access to this specific model
-		return ($auth->logged_in('dbadmin/*/' . $action) || $auth->logged_in('dbadmin/' . $model_name . '/' . $action) || $auth->logged_in('dbadmin/' . $model_name . '/*'));
+		return ($auth->logged_in('cl4admin/*/' . $action) || $auth->logged_in('cl4admin/' . $model_name . '/' . $action) || $auth->logged_in('cl4admin/' . $model_name . '/*'));
 	} // function
 
 	/**
