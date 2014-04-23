@@ -75,11 +75,11 @@ class Controller_CL4_CL4Admin extends Controller_Private {
 			// if there is no new model to go to, redirect them to the no access page
 			if (empty($go_to_model)) {
 				$this->set_session();
-				$this->redirect('login/noaccess' . URL::array_to_query(array('referrer' => $this->request->uri()), '&'));
+				$this->redirect(Base::get_url('login', array('action' => 'noaccess')) . URL::array_to_query(array('referrer' => $this->request->uri()), '&'));
 			}
 
 			$this->set_session();
-			$this->redirect('dbadmin/' . $go_to_model . '/index');
+			$this->redirect(Base::get_url('cl4admin', array('model' => $go_to_model)));
 		} // if
 
 		// check to see the user has permission to access this action
@@ -95,10 +95,10 @@ class Controller_CL4_CL4Admin extends Controller_Private {
 			} else if ($this->model_name != $default_model && ! empty($default_model)) {
 				Message::message('cl4admin', 'no_permission_item', NULL, Message::$error);
 				$this->set_session();
-				$this->redirect('dbadmin/' . $default_model . '/index');
+				$this->redirect(Base::get_url('cl4admin', array('model' => $default_model)));
 			} else {
 				$this->set_session();
-				$this->redirect('login/noaccess' . URL::array_to_query(array('referrer' => $this->request->uri()), '&'));
+				$this->redirect(Base::get_url('login', array('action' => 'noaccess')) . URL::array_to_query(array('referrer' => $this->request->uri()), '&'));
 			}
 		} // if
 
@@ -106,7 +106,7 @@ class Controller_CL4_CL4Admin extends Controller_Private {
 		if ( ! isset($model_list[$this->model_name]) && ! CL4::is_dev()) {
 			Message::message('cl4admin', 'model_not_defined', array(':model_name' => $this->model_name), Message::$debug);
 			$this->set_session();
-			$this->redirect('dbadmin/' . $default_model . '/index');
+			$this->redirect(Base::get_url('cl4admin', array('model' => $default_model)));
 		}
 
 		$this->model_session = Session::instance()->path($this->session_key . '.' . $this->model_name);
@@ -214,7 +214,7 @@ class Controller_CL4_CL4Admin extends Controller_Private {
 
 			// redirect back to the page and display the error
 			$this->set_session();
-			$this->redirect(Route::get('cl4admin')->uri(array('model' => key($model_list))));
+			$this->redirect(Base::get_url('cl4admin', array('model' => key($model_list))));
 
 		} // try
 	} // function load_model
@@ -722,6 +722,6 @@ class Controller_CL4_CL4Admin extends Controller_Private {
 	*/
 	function redirect_to_index() {
 		$this->set_session();
-		$this->redirect('/' . Route::get(Route::name($this->request->route()))->uri(array('model' => $this->model_name, 'action' => 'index')));
+		$this->redirect(Base::get_url('cl4admin', array('model' => $this->model_name)));
 	} // function
 } // class
