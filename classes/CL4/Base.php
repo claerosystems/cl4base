@@ -367,8 +367,8 @@ class CL4_Base {
 			->join(array('user', 'u'))->on('u.id', '=', 'l.user_id');
 
 		if ( ! empty($filter['user_id'])) $login_query->where('l.user_id', '=', $filter['user_id']);
-		if ( ! empty($filter['from'])) $login_query->where('l.access_time', '>', $filter['from']);
-		if ( ! empty($filter['to'])) $login_query->where('l.access_time', '<', $filter['to']);
+		if ( ! empty($filter['from'])) $login_query->where('l.access_time', '>=', $filter['from']);
+		if ( ! empty($filter['to'])) $login_query->where('l.access_time', '<=', $filter['to']);
 
 		if ( ! empty($filter['order_by_column']) && ! empty($filter['order_by_direction'])) {
 			$login_query->order_by($filter['order_by_column'], $filter['order_by_direction']);
