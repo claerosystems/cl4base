@@ -340,7 +340,7 @@ class Controller_CL4_CL4Admin extends Controller_Private {
 		);
 		if ( ! empty($this->id)) {
 			// set the form action because the current url includes the id of the record which will cause an update, not an add
-			$form_options['form_action'] = URL::site($this->request->route()->uri(array('model' => $this->model_name, 'action' => 'add'))) . URL::query();
+			$form_options['form_action'] = URL_ROOT . '/' . $this->request->route()->uri(array('model' => $this->model_name, 'action' => 'add')) . URL::query();
 		}
 
 		$view_content = $this->target_object->get_form($form_options);
