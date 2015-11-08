@@ -321,13 +321,17 @@ class Controller_CL4_Base extends Controller_Template {
 	 * @param  boolean  $replace  Controls if the CSS file should replace an existing file.
 	 * @return  Controller_Base
 	 */
-	protected function add_style($name, $path, $media = NULL, $dependencies = array(), $replace = FALSE) {
+	protected function add_style($name, $path, $media = NULL, $dependencies = array(), $replace = FALSE, $other_attributes = array()) {
 		if ( ! isset($this->styles[$name]) || $replace) {
 			$this->styles[$name] = array(
 				'path' => $path,
 				'media' => $media,
 				'dependencies' => $dependencies,
 			);
+
+			foreach ($other_attributes as $key => $value) {
+				$this->styles[$name][$key] = $value;
+			}
 		}
 
 		return $this;
