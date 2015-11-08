@@ -32,10 +32,10 @@ class Controller_CL4_Login extends Controller_Base {
 
 		// Get number of login attempts this session
 		$attempts = Session::instance()->path($login_config['session_key'] . '.attempts', 0);
-		$force_captcha = Session::instance()->path($login_config['session_key'] . '.force_captcha', FALSE);
+		$force_captcha = false; //Session::instance()->path($login_config['session_key'] . '.force_captcha', FALSE);
 
 		// If more than three login attempts, add a captcha to form
-		$captcha_required = ($force_captcha || $attempts > $login_config['failed_login_captcha_display']);
+		$captcha_required = false; //($force_captcha || $attempts > $login_config['failed_login_captcha_display']);
 		// Update number of login attempts
 		++$attempts;
 		Session::instance()->set_path($login_config['session_key'] . '.attempts', $attempts);
@@ -48,12 +48,12 @@ class Controller_CL4_Login extends Controller_Base {
 		try {
 			// $_POST is not empty
 			if ( ! empty($_POST)) {
-				$human_verified = FALSE;
-				$captcha_received = FALSE;
+				$human_verified = false;
+				$captcha_received = false;
 
 				// If recaptcha was set and is required
 				if ($captcha_required && isset($_POST['recaptcha_challenge_field']) && isset($_POST['recaptcha_response_field'])) {
-					$captcha_received = TRUE;
+					$captcha_received = true;
 					// Test if recaptcha is valid
 					$resp = recaptcha_check_answer(RECAPTCHA_PRIVATE_KEY, $_SERVER['REMOTE_ADDR'], $_POST['recaptcha_challenge_field'], $_POST['recaptcha_response_field']);
 					$human_verified = $resp->is_valid;
@@ -146,7 +146,8 @@ class Controller_CL4_Login extends Controller_Base {
 
 		if ( ! empty($timed_out)) {
 			// they have come from the timeout page, so send them back there
-			$this->redirect(Route::get(Route::name($this->request->route()))->uri(array('action' => 'timedout')) . $this->get_redirect_query());
+			//$this->redirect(Route::get(Route::name($this->request->route()))->uri(array('action' => 'timedout')) . $this->get_redirect_query());
+			$this->redirect(Base::get_url('login', array('action' => 'timedout')) . $this->get_redirect_query());
 		}
 
 		$this->template->body_html = View::factory('cl4/cl4login/login')
@@ -170,6 +171,7 @@ class Controller_CL4_Login extends Controller_Base {
 		} else {
 			$auth_config = Kohana::$config->load('auth');
 			$this->redirect(URL::site(Route::get($auth_config['default_login_redirect'])->uri($auth_config['default_login_redirect_params'])));
+			//$this->redirect(Base::get_url('login') . $this->get_redirect_query());
 		}
 	} // function login_success_redirect
 
@@ -189,8 +191,9 @@ class Controller_CL4_Login extends Controller_Base {
 			$this->login_success_redirect();
 		} // try
 
-		// redirect to the user account and then the signin page if logout worked as expected
-		$this->redirect(Route::get(Route::name($this->request->route()))->uri() . $this->get_redirect_query());
+		// redirect to the user account and then the sign in page if logout worked as expected
+		//$this->redirect(Route::get(Route::name($this->request->route()))->uri() . $this->get_redirect_query());
+		$this->redirect(Base::get_url('login') . $this->get_redirect_query());
 	} // function action_logout
 
 	/**
@@ -418,16 +421,19 @@ class Controller_CL4_Login extends Controller_Base {
 
 				Message::add(__(Kohana::message('login', 'password_emailed')), Message::$notice);
 
-				$this->redirect(Route::get(Route::name($this->request->route()))->uri());
+				//$this->redirect(Route::get(Route::name($this->request->route()))->uri());
+				$this->redirect(Base::get_url('login'));
 
 			} else {
 				Message::add(__(Kohana::message('login', 'password_email_username_not_found')), Message::$error);
-				$this->redirect(Route::get(Route::name($this->request->route()))->uri(array('action' => 'forgot')));
+				//$this->redirect(Route::get(Route::name($this->request->route()))->uri(array('action' => 'forgot')));
+				$this->redirect(Base::get_url('login', array('action' => 'forgot')));
 			}
 
 		} else {
 			Message::add(__(Kohana::message('login', 'password_email_partial')), Message::$error);
-			$this->redirect(Route::get(Route::name($this->request->route()))->uri(array('action' => 'forgot')));
+			//$this->redirect(Route::get(Route::name($this->request->route()))->uri(array('action' => 'forgot')));
+			$this->redirect(Base::get_url('login', array('action' => 'forgot')));
 		}
 	} // function action_reset
 } // class Controller_CL4_Login
