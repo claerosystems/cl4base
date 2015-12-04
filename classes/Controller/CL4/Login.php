@@ -150,7 +150,7 @@ class Controller_CL4_Login extends Controller_Base {
 			$this->redirect(Base::get_url('login', array('action' => 'timedout')) . $this->get_redirect_query());
 		}
 
-		$this->template->body_html = View::factory('cl4/cl4login/login')
+		$this->template->body_html = Base::get_view('cl4/cl4login/login')
 			->set('redirect', $redirect)
 			->set('username', $username)
 			->set('password', $password)
@@ -220,7 +220,7 @@ class Controller_CL4_Login extends Controller_Base {
 		}
 
 		$this->template->page_title = 'Timed Out';
-		$this->template->body_html = View::factory('cl4/cl4login/timed_out')
+		$this->template->body_html = Base::get_view('cl4/cl4login/timed_out')
 			->set('redirect', $redirect)
 			->set('username', $user->username);
 
@@ -270,7 +270,7 @@ class Controller_CL4_Login extends Controller_Base {
 	public function action_noaccess() {
 		// set the template title (see Controller_App for implementation)
 		$this->template->page_title = 'Access Not Allowed - ' . $this->page_title_append;
-		$view = $this->template->body_html = View::factory('cl4/cl4login/no_access')
+		$view = $this->template->body_html = Base::get_view('cl4/cl4login/no_access')
 			->set('referrer', CL4::get_param('referrer'));
 	} // function action_noaccess
 
@@ -337,7 +337,7 @@ class Controller_CL4_Login extends Controller_Base {
 					'reset_token' => $user->reset_token,
 				)), FALSE);
 
-				$mail->Body = View::factory('cl4/cl4login/forgot_link')
+				$mail->Body = Base::get_view('cl4/cl4login/forgot_link')
 					->set('app_name', LONG_NAME)
 					->set('url', $url)
 					->set('admin_email', ADMIN_EMAIL);
@@ -357,7 +357,7 @@ class Controller_CL4_Login extends Controller_Base {
 			}
 		} // if post
 
-		$this->template->body_html = View::factory('cl4/cl4login/forgot');
+		$this->template->body_html = Base::get_view('cl4/cl4login/forgot');
 	} // function action_forgot
 
 	/**
@@ -410,7 +410,7 @@ class Controller_CL4_Login extends Controller_Base {
 				// provide a link to the user including their username
 				$url = URL::site(Route::get(Route::name($this->request->route()))->uri() . '?' . http_build_query(array('username' => $user->username)), FALSE);
 
-				$mail->Body = View::factory('cl4/cl4login/forgot_reset')
+				$mail->Body = Base::get_view('cl4/cl4login/forgot_reset')
 					->set('app_name', LONG_NAME)
 					->set('username', $user->username)
 					->set('password', $password)
