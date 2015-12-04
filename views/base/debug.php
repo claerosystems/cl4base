@@ -29,7 +29,7 @@ echo EOL . EOL . '<!-- DEBUG START -->' . EOL; ?>
 		#kohana_error pre.source span.line span.number { color: #666; }
 #kohana_error ol.trace { display: block; margin: 0 0 0 2em; padding: 0; list-style: decimal; }
 	#kohana_error ol.trace li { margin: 0; padding: 0; }
-.js .collapsed, .js .kohana_profiler { display: none; }
+.js .kohana_profiler { display: none; }
 .profiler_show { color:#aaa; text-align:center; }
 .profiler_show:hover { color:#333; }
 </style>
