@@ -8,6 +8,8 @@ class Model_CL4_User_Admin extends Model_User {
 		$this->_table_columns['password']['field_type'] = 'Password';
 		$this->_table_columns['password']['list_flag'] = FALSE;
 		$this->_table_columns['password']['edit_flag'] = TRUE;
+		$this->_table_columns['password']['field_attributes'] = array('autocomplete' => 'off');
+
 
 		// add the password column, a copy of the password field
 		$this->_table_columns['password_confirm'] = $this->_table_columns['password'];
