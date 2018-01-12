@@ -206,7 +206,7 @@ class Controller_CL4_Base extends Controller_Template {
 						// store the get and post if timeout post is enabled
 						$this->process_timeout();
 
-						// display password page because the sesion has timeout
+						// display password page because the session has timeout
 						$this->redirect(Route::get('login')->uri(array('action' => 'timedout')) . $this->get_login_redirect_query());
 					}
 				} else {
