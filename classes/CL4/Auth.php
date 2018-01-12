@@ -329,9 +329,9 @@ class CL4_Auth extends Kohana_Auth_ORM {
 			$user->increment_failed_login();
 
 			// set the session key that forces a captcha
-			$login_session = Session::instance()->get($login_config['session_key'], array());
-			$login_session['force_captcha'] = TRUE;
-			Session::instance()->set($login_config['session_key'], $login_session);
+			//$login_session = Session::instance()->get($login_config['session_key'], array());
+			//$login_session['force_captcha'] = TRUE;
+			//Session::instance()->set($login_config['session_key'], $login_session);
 
 			// add a message and set the auth type for logging
 			$messages[] = array('username.too_many_attempts', array(':field' => $user_labels['username']));
