@@ -85,7 +85,7 @@ class Controller_CL4_Login extends Controller_Base {
 						Message::message('user', $message_path, array(), Message::$notice);
 
 						// instead of redirecting them to the location they requested, redirect them to the profile page
-						$redirect = Route::get('account')->uri(array('action' => 'profile'));
+						//$redirect = Route::get('account')->uri(array('action' => 'profile'));
 					} // if
 
 					if ( ! empty($redirect) && is_string($redirect)) {
