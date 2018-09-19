@@ -181,6 +181,7 @@ class Controller_CL4_Base extends Controller_Template {
 	public function check_login() {
 		// ***** Authentication *****
 		// check to see if they are allowed to access the action
+        //echo Debug::vars($this, $this->request->action());exit;
 		if ( ! Auth::instance()->controller_allowed($this, $this->request->action())) {
 			$is_ajax = (bool) Arr::get($_REQUEST, 'c_ajax', FALSE);
 
@@ -193,7 +194,7 @@ class Controller_CL4_Base extends Controller_Template {
 					));
 					exit;
 				} else {
-					$this->redirect(Route::get('login')->uri(array('action' => 'noaccess')) . $this->get_login_redirect_query());
+					$this->redirect(URL_ROOT . '/' . Route::get('login')->uri(array('action' => 'noaccess')) . $this->get_login_redirect_query());
 				}
 			} else {
 				if (Auth::instance()->timed_out()) {
@@ -207,7 +208,7 @@ class Controller_CL4_Base extends Controller_Template {
 						$this->process_timeout();
 
 						// display password page because the session has timeout
-						$this->redirect(Route::get('login')->uri(array('action' => 'timedout')) . $this->get_login_redirect_query());
+						$this->redirect(URL_ROOT . '/' . Route::get('login')->uri(array('action' => 'timedout')) . $this->get_login_redirect_query());
 					}
 				} else {
 					if ($is_ajax) {
@@ -218,7 +219,7 @@ class Controller_CL4_Base extends Controller_Template {
 						exit;
 					} else {
 						// just not logged in, so redirect them to the login with a redirect parameter back to the current page
-						$this->redirect(Route::get('login')->uri() . $this->get_login_redirect_query());
+						$this->redirect(URL_ROOT . '/' . Route::get('login')->uri() . $this->get_login_redirect_query());
 					}
 				}
 			} // if
