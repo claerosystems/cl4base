@@ -28,7 +28,7 @@ class Model_CL4_User extends Model_Auth_User {
 			'edit_flag'      => FALSE,
 			'search_flag'    => FALSE,
 			'view_flag'      => FALSE,
-			'is_nullable'    => FALSE,
+			'is_nullable'    => TRUE,
 		),
 		'username' => array(
 			'field_type'     => 'Text',
@@ -120,7 +120,7 @@ class Model_CL4_User extends Model_Auth_User {
 			'edit_flag'      => FALSE,
 			'search_flag'    => TRUE,
 			'view_flag'      => TRUE,
-			'is_nullable'    => FALSE,
+			'is_nullable'    => TRUE,
 		),
 		'reset_token' => array(
 			'field_type'     => 'Text',
@@ -182,7 +182,7 @@ class Model_CL4_User extends Model_Auth_User {
 
 	protected $_expires_column = array(
 		'column' 	=> 'expiry_date',
-		'default'	=> 0,
+		'default'	=> NULL,
 	);
 
 	/**
