@@ -16,3 +16,5 @@ sftp-config.json
 .project
 .revision
 .idea
+/classes/Controller/CL4/Ajax.php
+/classes/Controller/Ajax.php
