@@ -468,7 +468,7 @@ class CL4_Base {
 	 * POST overrides route parameter which overrides GET
 	 *
 	 * @param    string      $parameter_name     the name of the parameter
-	 * @param    mixed       $default            (optional) the default value to set/return, uses timeportal conf defaults instead
+	 * @param    mixed       $default            (optional) the default value to set/return, uses conf defaults instead
 	 */
 	public static function get_smart_parameter($parameter_name, $default = NULL) {
 		$session =& Session::instance()->as_array();

@@ -182,7 +182,7 @@ class Model_CL4_User extends Model_Auth_User {
 
 	protected $_expires_column = array(
 		'column' 	=> 'expiry_date',
-		'default'	=> NULL,
+		'default'	=> 0,
 	);
 
 	/**
