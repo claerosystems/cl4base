@@ -6,7 +6,7 @@
 class Controller_CL4_CL4Admin extends Controller_Private {
 	protected $db_group; // the default database config to use, needed for when a specific model is not loaded
 	protected $model_name; // the name of the model currently being manipulated
-	protected $model_display_name; // the fulll, friendly object name as specified in the options or the model itself
+	protected $model_display_name; // the full, friendly object name as specified in the options or the model itself
 	/**
 	* @var  ORM  The model we are working with
 	*/
